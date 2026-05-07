@@ -1,0 +1,58 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "waxell": "https://waxell.ai/ns#",
+    "otel": "https://opentelemetry.io/schemas/",
+    "Agent": "waxell:Agent",
+    "Run": "waxell:Run",
+    "Session": "waxell:Session",
+    "LlmCall": "waxell:LlmCall",
+    "Span": "waxell:Span",
+    "Step": "waxell:Step",
+    "Score": "waxell:Score",
+    "Policy": "waxell:Policy",
+    "PolicyDecision": "waxell:PolicyDecision",
+    "Event": "waxell:Event",
+    "ModelCost": "waxell:ModelCost",
+    "Prompt": "waxell:Prompt",
+    "agent_name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "run_id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "session_id": "waxell:sessionId",
+    "user_id": {
+      "@id": "schema:agent",
+      "@type": "@id"
+    },
+    "model": "waxell:model",
+    "provider": "waxell:provider",
+    "input_tokens": "waxell:inputTokens",
+    "output_tokens": "waxell:outputTokens",
+    "latency_ms": "waxell:latencyMs",
+    "cost_usd": "waxell:costUsd",
+    "started_at": {
+      "@id": "schema:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "completed_at": {
+      "@id": "schema:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "decision": "waxell:decision",
+    "category": "waxell:policyCategory",
+    "reason": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "policy_id": "waxell:policyId",
+    "span_id": "waxell:spanId",
+    "parent_span_id": "waxell:parentSpanId",
+    "kind": "waxell:spanKind",
+    "attributes": "otel:attributes"
+  }
+}

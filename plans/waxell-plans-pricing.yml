@@ -1,0 +1,104 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Waxell
+providerId: waxell
+created: '2026-05-06'
+modified: '2026-05-06'
+reconciled: false
+notes: >-
+  As of May 2026 Waxell is in beta and does not publish a self-service pricing
+  page. The /pricing path returns 404 and the /get-access page directs all
+  prospects to "Book a 15-minute call. Get access." with the only public
+  commercial signal being "Beta access is free." Tier names and entry prices
+  below are inferred from the public site copy (Connect / Observe / Runtime
+  product lines plus Beta + Enterprise commercial tiers) and are placeholders
+  until the provider publishes numbers. Set reconciled to true once a public
+  pricing page is available.
+tags:
+  - AI Agent Governance
+  - Observability
+  - Beta
+  - Contact Sales
+description: >-
+  Waxell currently markets a single beta tier ("free to start, 2-line setup")
+  alongside a personalized onboarding path that routes to a sales call.
+  Production and enterprise pricing is gated behind that call. The provider's
+  three product lines (Connect, Observe, Runtime) are surfaced together rather
+  than priced separately.
+sources:
+  - https://waxell.ai/
+  - https://waxell.ai/get-access
+  - https://waxell.ai/docs
+plans:
+  - id: waxell-beta
+    name: Beta
+    type: freemium
+    description: Free beta access with 2-line setup; full Observe SDK plus governance policies, gated by manual onboarding call.
+    entries:
+      - label: Beta access
+        name: beta_access
+        type: flat
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0'
+      - label: LLM call ingestion
+        name: llm_call_ingestion
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: included during beta
+      - label: Governance policy evaluations
+        name: policy_evaluations
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: included during beta
+    elements:
+      - name: Auto-instrumentation for 200+ libraries
+      - name: 26 governance policy categories
+      - name: MCP governance proxy
+      - name: Cost management with model cost overrides
+      - name: Prompt management with versioning
+      - name: Workflow envelope durable execution
+      - name: Developer MCP server (15 live tools)
+      - name: Status page and trust center access
+  - id: waxell-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Custom enterprise tier surfaced via "Book a Demo" / quick-start call; pricing not published. Includes EU data residency, SOC 2 readiness, and stack-specific configuration.
+    entries:
+      - label: Enterprise platform
+        name: enterprise_platform
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact sales
+      - label: Stack-specific configuration
+        name: stack_configuration
+        type: flat
+        metric: varies
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact sales
+    elements:
+      - name: Same-day provisioning via quick-start call
+      - name: Configuration tailored to customer stack
+      - name: EU data residency (eu-west-1)
+      - name: SOC 2 Type II (in progress, target Q2 2026)
+      - name: GDPR DPA and CCPA support
+      - name: Customer subprocessor list with 30-day notice

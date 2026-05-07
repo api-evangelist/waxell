@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Waxell Observe
+  description: >-
+    Waxell Observe REST API for AI agent governance and observability:
+    record runs, LLM calls, spans, steps, and scores; manage prompts;
+    evaluate runtime governance policies; administer model cost tables.
+  tags:
+    - Waxell
+    - AI Agent Governance
+    - Observability
+    - LLM Telemetry
+    - Policy Enforcement
+  created: '2026-05-06'
+  modified: '2026-05-06'
+binds:
+  - namespace: env
+    keys:
+      WAXELL_API_KEY: WAXELL_API_KEY
+      WAXELL_API_URL: WAXELL_API_URL
+capability:
+  consumes:
+    - type: http
+      namespace: waxell-observe
+      baseUri: '{{WAXELL_API_URL}}'
+      description: Waxell Observe REST API base URL (tenant-specific *.waxell.dev host).
+      authentication:
+        type: apikey
+        in: header
+        name: X-Wax-Key
+        value: '{{WAXELL_API_KEY}}'
+      resources:
+        - name: runs
+          path: /api/v1/observe/runs
+          description: Lifecycle and telemetry for agent execution runs.
+          operations:
+            - name: startrun
+              method: POST
+              path: /api/v1/observe/runs/start/
+              description: Start an agent run.
+              outputRawFormat: json
+            - name: completerun
+              method: POST
+              path: /api/v1/observe/runs/{run_id}/complete/
+              description: Mark a run as complete.
+              inputParameters:
+                - name: run_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+            - name: recordllmcall
+              method: POST
+              path: /api/v1/observe/runs/{run_id}/llm-calls/
+              description: Log an LLM call against a run.
+              inputParameters:
+                - name: run_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+            - name: recordstep
+              method: POST
+              path: /api/v1/observe/runs/{run_id}/steps/
+              description: Log an execution step against a run.
+              outputRawFormat: json
+            - name: recordspan
+              method: POST
+              path: /api/v1/observe/runs/{run_id}/spans/
+              description: Log an OpenTelemetry-style span against a run.
+              outputRawFormat: json
+            - name: recordscore
+              method: POST
+              path: /api/v1/observe/runs/{run_id}/scores/
+              description: Submit a quality or evaluation score against a run.
+              outputRawFormat: json
+        - name: prompts
+          path: /api/v1/observe/prompts
+          description: Managed prompt retrieval.
+          operations:
+            - name: getprompt
+              method: GET
+              path: /api/v1/observe/prompts/{name}/
+              description: Retrieve a managed prompt by name and label/version.
+              inputParameters:
+                - name: name
+                  in: path
+                  type: string
+                  required: true
+                - name: label
+                  in: query
+                  type: string
+                  required: false
+                - name: version
+                  in: query
+                  type: integer
+                  required: false
+              outputRawFormat: json
+        - name: governance
+          path: /api/v1/observe
+          description: Pre-execution policy checks and audit events.
+          operations:
+            - name: checkpolicy
+              method: POST
+              path: /api/v1/observe/policy-check/
+              description: Evaluate the configured governance policies for a proposed agent action.
+              outputRawFormat: json
+            - name: recordevent
+              method: POST
+              path: /api/v1/observe/events/
+              description: Append a governance or audit event to the audit trail.
+              outputRawFormat: json
+        - name: model-costs
+          path: /api/v1/observe/model-costs
+          description: Model cost catalog and tenant overrides.
+          operations:
+            - name: listmodelcosts
+              method: GET
+              path: /api/v1/observe/model-costs/
+              description: Return the merged cost table.
+              outputRawFormat: json
+            - name: setmodelcost
+              method: PUT
+              path: /api/v1/observe/model-costs/{model_id}/
+              description: Override the cost for a model id.
+              inputParameters:
+                - name: model_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+            - name: deletemodelcost
+              method: DELETE
+              path: /api/v1/observe/model-costs/{model_id}/
+              description: Remove a tenant-specific override.
+              outputRawFormat: json

@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://acme.waxell.dev/api/v1/observe/policy-check/",
+    "headers": {
+      "X-Wax-Key": "wax_sk_xxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "agent_name": "support-bot",
+      "run_id": "9c1c7c3a-2a3a-4f9b-9c5e-8d2c5e6b4d10",
+      "action": "tool:send_email",
+      "context": {
+        "recipient_domain": "external.example",
+        "contains_pii": true
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "decision": "block",
+      "policy_id": "pol_pii_outbound",
+      "category": "privacy",
+      "reason": "Outbound message contains detected PII; blocked by Privacy policy."
+    }
+  }
+}

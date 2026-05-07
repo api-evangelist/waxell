@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/waxell/main/json-schema/waxell-llm-call-schema.json",
+  "title": "Waxell LLM Call",
+  "description": "An individual LLM API call captured by the Waxell auto-instrumentation layer.",
+  "type": "object",
+  "required": ["model"],
+  "properties": {
+    "id": { "type": "string" },
+    "run_id": { "type": "string", "format": "uuid" },
+    "model": {
+      "type": "string",
+      "description": "Provider-qualified model identifier (e.g. openai/gpt-4o, anthropic/claude-3-5-sonnet)."
+    },
+    "provider": { "type": "string" },
+    "input_tokens": { "type": "integer", "minimum": 0 },
+    "output_tokens": { "type": "integer", "minimum": 0 },
+    "latency_ms": { "type": "integer", "minimum": 0 },
+    "cost_usd": { "type": "number", "minimum": 0 },
+    "prompt": { "type": "string" },
+    "completion": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

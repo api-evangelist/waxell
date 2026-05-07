@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/waxell/main/json-schema/waxell-policy-decision-schema.json",
+  "title": "Waxell Policy Decision",
+  "description": "Outcome of a runtime governance policy evaluation against a proposed agent action.",
+  "type": "object",
+  "required": ["decision"],
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["allow", "warn", "redact", "throttle", "block", "skip", "retry"],
+      "description": "One of the seven Waxell policy decision actions."
+    },
+    "policy_id": { "type": "string" },
+    "category": {
+      "type": "string",
+      "description": "Policy category, e.g. cost_management, data_access, kill_switch.",
+      "enum": [
+        "rate_limit",
+        "kill_switch",
+        "operations",
+        "cost_management",
+        "data_access",
+        "network",
+        "input_validation",
+        "identity",
+        "content",
+        "privacy",
+        "grounding",
+        "retrieval",
+        "reasoning",
+        "memory",
+        "delegation",
+        "scope",
+        "safety",
+        "compliance",
+        "code_execution",
+        "communication",
+        "quality",
+        "llm_model"
+      ]
+    },
+    "reason": { "type": "string" },
+    "retry_after_seconds": { "type": "integer", "minimum": 0 },
+    "redacted_content": { "type": "string" }
+  },
+  "additionalProperties": false
+}

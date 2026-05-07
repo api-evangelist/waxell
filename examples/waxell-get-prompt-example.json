@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://acme.waxell.dev/api/v1/observe/prompts/support-greeting/?label=production",
+    "headers": {
+      "X-Wax-Key": "wax_sk_xxx"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "name": "support-greeting",
+      "version": 7,
+      "label": "production",
+      "template": "You are a friendly support agent for {company}. Always greet the customer by name.",
+      "variables": ["company"]
+    }
+  }
+}

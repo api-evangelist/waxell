@@ -1,0 +1,17 @@
+{
+  "name": "Waxell Policy Decision Structure",
+  "description": "Logical structure for the result of a runtime governance policy evaluation in Waxell.",
+  "entity": "PolicyDecision",
+  "fields": [
+    { "name": "decision", "type": "enum", "values": ["allow", "warn", "redact", "throttle", "block", "skip", "retry"], "required": true, "source": "Policy engine on control plane" },
+    { "name": "policy_id", "type": "string", "source": "Identifier of the matched policy" },
+    { "name": "category", "type": "enum", "source": "One of the 26 Waxell policy categories" },
+    { "name": "reason", "type": "string", "source": "Human-readable rationale, surfaced in trace" },
+    { "name": "retry_after_seconds", "type": "integer", "source": "Set when decision is throttle or retry" },
+    { "name": "redacted_content", "type": "string", "source": "Set when decision is redact" }
+  ],
+  "context": {
+    "evaluatedAt": "Pre-execution, mid-execution between agent steps, or post-execution per @waxell.observe configuration",
+    "raises": "PolicyViolationError when decision is block or throttle"
+  }
+}

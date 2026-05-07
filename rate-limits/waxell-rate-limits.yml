@@ -1,0 +1,64 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Waxell
+providerId: waxell
+created: '2026-05-06'
+modified: '2026-05-06'
+reconciled: false
+notes: >-
+  Waxell does not publish numeric API rate limits in its public docs. The
+  /docs/observe/api/rate-limits path returns HTTP 403 to unauthenticated
+  fetches. Two rate-limit surfaces are documented qualitatively: the standard
+  HTTP 429 response from the Observe API, and the "Rate Limit" governance
+  policy category that throttles agent execution. Set reconciled to true once
+  per-key request-per-second numbers are published.
+tags:
+  - Rate Limiting
+  - AI Agent Governance
+  - Observability
+description: >-
+  Waxell exposes two related rate-limiting surfaces. The Observe REST API
+  enforces tenant-scoped request limits (per `wax_sk_` API key) and returns
+  HTTP 429 when exceeded. Independently, the Waxell governance engine itself
+  emits "throttle" decisions through the policy_check endpoint to slow down
+  or block agents under runtime cost or rate-limit policies — agents see this
+  as a `PolicyViolationError`. Numeric ceilings are not publicly documented.
+sources:
+  - https://waxell.ai/docs
+  - https://waxell.ai/docs/observe/overview
+  - https://waxell.ai/docs/observe/features/cost-management
+  - https://waxell.ai/docs/observe/features/governance
+headers:
+  requestId: X-Request-Id
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+  unauthorized: 401
+limits:
+  - name: Observe API requests (per API key)
+    scope: key
+    metric: varies
+    limit: 'see /docs/observe/api/rate-limits (gated)'
+    notes: Tenant-scoped throttle attached to the wax_sk_ key; numeric ceilings not published.
+  - name: Policy check throttling
+    scope: account
+    metric: varies
+    limit: 'governed by configured Rate Limit / Cost Management policies'
+    notes: Governance policies can return a `throttle` decision that is enforced inside the SDK.
+  - name: Runtime cost-budget throttle
+    scope: account
+    metric: varies
+    limit: 'configurable budget, raises PolicyViolationError when exceeded'
+    notes: Cost policies block or throttle runs when configured token / dollar budgets are exceeded.
+policies:
+  - name: PolicyViolationError on throttle/block
+    description: Throttle and block decisions raise `PolicyViolationError` inside the Waxell SDK; callers should catch and back off.
+  - name: Decision actions
+    description: The policy engine returns one of seven actions — allow, warn, redact, throttle, block, skip, retry — only the latter three are throttle-equivalent.
+  - name: Mid-execution governance
+    description: With `mid_execution_governance=True`, policies are re-evaluated between agent steps so long-running agents can be throttled mid-run.
+  - name: Kill switch
+    description: Operators can flip a kill switch policy that immediately blocks all runs for an agent or tenant.
+  - name: Retry guidance
+    description: Standard exponential backoff is recommended on HTTP 429; `retry_after_seconds` may be returned on policy decisions.

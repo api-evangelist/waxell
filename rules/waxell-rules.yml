@@ -1,0 +1,110 @@
+extends:
+  - spectral:oas
+rules:
+  waxell-info-title-prefix:
+    description: All Waxell OpenAPI titles SHOULD start with "Waxell ".
+    severity: warn
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Waxell '
+  waxell-server-https:
+    description: All Waxell API servers MUST use HTTPS.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+  waxell-server-tenant-host:
+    description: Waxell servers SHOULD be a tenant-specific *.waxell.dev host.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://(\{tenant\}|[a-z0-9-]+)\.waxell\.dev'
+  waxell-base-path:
+    description: Waxell Observe paths MUST be served under /api/v1/observe/.
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/api/v1/observe/'
+  waxell-operation-id-required:
+    description: Operations MUST have an operationId.
+    severity: error
+    given: $.paths[*][get,post,put,delete,patch]
+    then:
+      field: operationId
+      function: truthy
+  waxell-operation-id-camel-case:
+    description: operationId SHOULD be camelCase.
+    severity: warn
+    given: $.paths[*][get,post,put,delete,patch].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]+$'
+  waxell-summary-required:
+    description: Operations MUST have a summary.
+    severity: error
+    given: $.paths[*][get,post,put,delete,patch]
+    then:
+      field: summary
+      function: truthy
+  waxell-summary-title-case:
+    description: Operation summaries SHOULD use Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,delete,patch].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z]'
+  waxell-tags-required:
+    description: Operations MUST be tagged with at least one tag.
+    severity: warn
+    given: $.paths[*][get,post,put,delete,patch].tags
+    then:
+      function: truthy
+  waxell-snake-case-properties:
+    description: Schema properties SHOULD use snake_case (matches the API payloads).
+    severity: warn
+    given: $.components.schemas[*].properties[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+  waxell-trailing-slash:
+    description: Waxell paths use a trailing slash; enforce consistency.
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: '/$'
+  waxell-security-required:
+    description: API MUST declare a security scheme (X-Wax-Key or Bearer).
+    severity: error
+    given: $.components.securitySchemes
+    then:
+      function: truthy
+  waxell-error-schema-shape:
+    description: Error responses SHOULD reference an Error schema with `error` and `message` fields.
+    severity: warn
+    given: $.components.schemas.Error.properties
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: [error, message]
+  waxell-rate-limit-response:
+    description: All write operations SHOULD document a 429 response for governance throttling.
+    severity: warn
+    given: $.paths[*][post,put,delete,patch].responses
+    then:
+      field: '429'
+      function: truthy

@@ -1,0 +1,175 @@
+vocabulary: '1.0.0'
+info:
+  provider: Waxell
+  description: >-
+    Vocabulary for the Waxell AI agent governance and observability platform.
+    Captures the operational dimension (Observe REST API resources) and the
+    capability dimension (governance workflow exposed via REST and MCP).
+  created: '2026-05-06'
+  modified: '2026-05-06'
+
+operational:
+  apis:
+    - name: Waxell Observe
+      namespace: waxell-observe
+      version: v1
+      baseUrl: https://{tenant}.waxell.dev/api/v1/observe
+      status: active
+  resources:
+    - name: Run
+      api: waxell-observe
+      actions: [start, complete, list]
+    - name: LlmCall
+      api: waxell-observe
+      actions: [record]
+    - name: Span
+      api: waxell-observe
+      actions: [record]
+    - name: Step
+      api: waxell-observe
+      actions: [record]
+    - name: Score
+      api: waxell-observe
+      actions: [record]
+    - name: Prompt
+      api: waxell-observe
+      actions: [get]
+    - name: PolicyDecision
+      api: waxell-observe
+      actions: [check]
+    - name: Event
+      api: waxell-observe
+      actions: [record]
+    - name: ModelCost
+      api: waxell-observe
+      actions: [list, set, delete]
+  actions:
+    - name: start
+      method: POST
+      pattern: write
+    - name: complete
+      method: POST
+      pattern: write
+    - name: record
+      method: POST
+      pattern: write
+    - name: get
+      method: GET
+      pattern: read
+    - name: list
+      method: GET
+      pattern: read
+    - name: check
+      method: POST
+      pattern: query
+    - name: set
+      method: PUT
+      pattern: write
+    - name: delete
+      method: DELETE
+      pattern: destructive
+  enums:
+    runStatus:
+      - pending
+      - running
+      - paused
+      - completed
+      - failed
+    policyDecision:
+      - allow
+      - warn
+      - redact
+      - throttle
+      - block
+      - skip
+      - retry
+    policyCategory:
+      - rate_limit
+      - kill_switch
+      - operations
+      - cost_management
+      - data_access
+      - network
+      - input_validation
+      - identity
+      - content
+      - privacy
+      - grounding
+      - retrieval
+      - reasoning
+      - memory
+      - delegation
+      - scope
+      - safety
+      - compliance
+      - code_execution
+      - communication
+      - quality
+      - llm_model
+    spanKind:
+      - tool
+      - retrieval
+      - decision
+      - llm
+      - custom
+    eventSeverity:
+      - info
+      - warning
+      - error
+      - critical
+  authentication:
+    schemes:
+      - name: WaxKey
+        type: apiKey
+        in: header
+        header: X-Wax-Key
+      - name: BearerAuth
+        type: http
+        scheme: bearer
+        format: wax_sk
+
+capability:
+  workflows:
+    - name: Agent Governance
+      file: capabilities/agent-governance.yaml
+      apis: [waxell-observe]
+      tools:
+        - start_agent_run
+        - record_llm_call
+        - record_span
+        - complete_agent_run
+        - check_policy
+        - record_audit_event
+        - list_model_costs
+        - get_managed_prompt
+      personas: [PlatformEngineer, AgentDeveloper, FinOpsAnalyst]
+      domains: [Observability, Governance, CostManagement]
+  personas:
+    - id: platform-engineer
+      name: Platform Engineer
+      description: Configures policies and reviews audit trails across all agents.
+      workflows: [Agent Governance]
+    - id: agent-developer
+      name: Agent Developer
+      description: Wires the Observe SDK into agents and consumes prompt management.
+      workflows: [Agent Governance]
+    - id: finops-analyst
+      name: FinOps Analyst
+      description: Tracks LLM spend and enforces cost budgets via governance policies.
+      workflows: [Agent Governance]
+  domains:
+    - name: Observability
+      resources: [Run, LlmCall, Span, Step, Score]
+    - name: Governance
+      resources: [PolicyDecision, Event]
+    - name: CostManagement
+      resources: [ModelCost, LlmCall]
+    - name: PromptManagement
+      resources: [Prompt]
+  namespaces:
+    consumed:
+      - waxell-observe
+    rest:
+      - waxell-agent-governance
+    mcp:
+      - waxell-agent-governance

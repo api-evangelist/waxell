@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/waxell/main/json-schema/waxell-span-schema.json",
+  "title": "Waxell Span",
+  "description": "An OpenTelemetry-compatible span recorded inside an agent run (tool call, retrieval, decision, llm).",
+  "type": "object",
+  "properties": {
+    "span_id": { "type": "string" },
+    "parent_span_id": { "type": "string" },
+    "run_id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": ["tool", "retrieval", "decision", "llm", "custom"]
+    },
+    "attributes": { "type": "object", "additionalProperties": true },
+    "start_time": { "type": "string", "format": "date-time" },
+    "end_time": { "type": "string", "format": "date-time" }
+  },
+  "required": ["name", "kind"],
+  "additionalProperties": false
+}

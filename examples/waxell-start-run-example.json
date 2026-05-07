@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://acme.waxell.dev/api/v1/observe/runs/start/",
+    "headers": {
+      "X-Wax-Key": "wax_sk_xxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "agent_name": "support-bot",
+      "session_id": "sess_19c4f1",
+      "user_id": "u_4521",
+      "metadata": {
+        "channel": "slack",
+        "tenant": "acme"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "run_id": "9c1c7c3a-2a3a-4f9b-9c5e-8d2c5e6b4d10",
+      "agent_name": "support-bot",
+      "status": "running",
+      "started_at": "2026-05-06T14:00:00Z",
+      "session_id": "sess_19c4f1",
+      "user_id": "u_4521"
+    }
+  }
+}

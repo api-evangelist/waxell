@@ -1,0 +1,121 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Waxell
+providerId: waxell
+created: '2026-05-06'
+modified: '2026-05-06'
+reconciled: false
+notes: >-
+  Waxell is currently in beta with all commercial pricing routed through a
+  sales call; the public site does not publish per-meter prices. Meters and
+  charge categories below model the platform's documented telemetry surface
+  (Observe runs, LLM calls, governance policy evaluations, MCP tool calls,
+  workflow runtime executions) but unit prices are not yet known. Set
+  reconciled to true after pricing is published or confirmed in a customer
+  agreement.
+tags:
+  - FinOps
+  - FOCUS
+  - AI Agent Governance
+  - Observability
+description: >-
+  FOCUS-aligned FinOps shape for Waxell: a usage-based AI agent governance and
+  observability platform metering ingested LLM calls, governance policy
+  evaluations, MCP tool calls, and durable runtime executions, with subscription
+  add-ons for enterprise governance and seats.
+sources:
+  - https://waxell.ai/
+  - https://waxell.ai/get-access
+  - https://waxell.ai/docs/observe/features/cost-management
+  - https://waxell.ai/docs/observe/api/endpoints
+  - https://waxell.ai/docs/security
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Callsine, Inc. (dba Waxell)
+serviceCategory: AI Agent Governance and Observability
+billingModel:
+  pricingCategory: Pay-As-You-Go + Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Tax
+    - Adjustment
+    - Credit
+focusColumns:
+  ServiceName: Waxell
+  ServiceCategory: AI Agent Governance and Observability
+  ProviderName: Waxell
+  PublisherName: Callsine, Inc.
+  InvoiceIssuerName: Callsine, Inc.
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  RegionId: us-east-1, eu-west-1
+meters:
+  - name: agent_runs
+    unit: request
+    aggregation: count
+    dimensions:
+      - agent_name
+      - tenant
+  - name: llm_calls_ingested
+    unit: request
+    aggregation: count
+    dimensions:
+      - provider
+      - model
+      - agent_name
+  - name: tokens_input
+    unit: token
+    aggregation: sum
+    dimensions:
+      - provider
+      - model
+  - name: tokens_output
+    unit: token
+    aggregation: sum
+    dimensions:
+      - provider
+      - model
+  - name: policy_evaluations
+    unit: request
+    aggregation: count
+    dimensions:
+      - category
+      - decision
+  - name: mcp_tool_calls
+    unit: request
+    aggregation: count
+    dimensions:
+      - mcp_server
+      - tool_name
+  - name: durable_runtime_executions
+    unit: instance-hour
+    aggregation: sum
+    dimensions:
+      - workflow_name
+  - name: data_retention
+    unit: GB-month
+    aggregation: avg
+    dimensions:
+      - data_class
+  - name: seats
+    unit: seat
+    aggregation: max
+    dimensions:
+      - role
+principles:
+  - name: Visibility
+    description: Use the Waxell control plane dashboard at https://waxell.dev plus the Observe REST API (`/runs`, `/llm-calls`, `/spans`, `/events`) and the `estimate_cost()` SDK helper to see token, dollar, and policy-decision consumption per agent and per user.
+  - name: Allocation
+    description: Tag every run with `agent_name`, `session_id`, and `user_id` plus free-form metadata via WaxellContext to attribute LLM and governance spend to the team or product owning the agent.
+  - name: Optimization
+    description: Use `model-costs` overrides to reflect negotiated rates from upstream LLM vendors; use Cost Management governance policies to set budgets that warn, throttle, or block when an agent or tenant approaches a spend ceiling; use the prompt manager to roll back regressions that inflate token usage.
+  - name: Accountability
+    description: SOC 2 Type II is in progress; immutable audit trails (`/events/`) plus the kill-switch policy and human-in-the-loop approval handlers (Slack, webhooks) give a single owner the levers to halt or escalate spend in real time.
