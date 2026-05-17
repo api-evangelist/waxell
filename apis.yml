@@ -138,7 +138,7 @@ common:
     url: capabilities/agent-governance.yaml
   - type: NaftikoCapability
     url: capabilities/shared/observe.yaml
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/waxell-context.jsonld
   - type: Example
     url: examples/waxell-start-run-example.json
