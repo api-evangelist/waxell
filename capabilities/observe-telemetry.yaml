@@ -1,0 +1,206 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Waxell Observe API — Telemetry
+  description: 'Waxell Observe API — Telemetry. 4 operations. Lead operation: Record LLM Call. Self-contained Naftiko capability
+    covering one Waxell business surface.'
+  tags:
+  - Waxell
+  - Telemetry
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WAXELL_API_KEY: WAXELL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: observe-telemetry
+    baseUri: https://{tenant}.waxell.dev
+    description: Waxell Observe API — Telemetry business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-observe-runs-run_id-llm-calls
+      path: /api/v1/observe/runs/{run_id}/llm-calls/
+      operations:
+      - name: recordllmcall
+        method: POST
+        description: Record LLM Call
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-observe-runs-run_id-scores
+      path: /api/v1/observe/runs/{run_id}/scores/
+      operations:
+      - name: recordscore
+        method: POST
+        description: Record Score
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-observe-runs-run_id-spans
+      path: /api/v1/observe/runs/{run_id}/spans/
+      operations:
+      - name: recordspan
+        method: POST
+        description: Record Span
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-observe-runs-run_id-steps
+      path: /api/v1/observe/runs/{run_id}/steps/
+      operations:
+      - name: recordstep
+        method: POST
+        description: Record Step
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WAXELL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: observe-telemetry-rest
+    port: 8080
+    description: REST adapter for Waxell Observe API — Telemetry. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/observe/runs/{run-id}/llm-calls
+      name: api-v1-observe-runs-run-id-llm-calls
+      description: REST surface for api-v1-observe-runs-run_id-llm-calls.
+      operations:
+      - method: POST
+        name: recordllmcall
+        description: Record LLM Call
+        call: observe-telemetry.recordllmcall
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/observe/runs/{run-id}/scores
+      name: api-v1-observe-runs-run-id-scores
+      description: REST surface for api-v1-observe-runs-run_id-scores.
+      operations:
+      - method: POST
+        name: recordscore
+        description: Record Score
+        call: observe-telemetry.recordscore
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/observe/runs/{run-id}/spans
+      name: api-v1-observe-runs-run-id-spans
+      description: REST surface for api-v1-observe-runs-run_id-spans.
+      operations:
+      - method: POST
+        name: recordspan
+        description: Record Span
+        call: observe-telemetry.recordspan
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/observe/runs/{run-id}/steps
+      name: api-v1-observe-runs-run-id-steps
+      description: REST surface for api-v1-observe-runs-run_id-steps.
+      operations:
+      - method: POST
+        name: recordstep
+        description: Record Step
+        call: observe-telemetry.recordstep
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: observe-telemetry-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Waxell Observe API — Telemetry. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: record-llm-call
+      description: Record LLM Call
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: observe-telemetry.recordllmcall
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: record-score
+      description: Record Score
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: observe-telemetry.recordscore
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: record-span
+      description: Record Span
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: observe-telemetry.recordspan
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: record-step
+      description: Record Step
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: observe-telemetry.recordstep
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

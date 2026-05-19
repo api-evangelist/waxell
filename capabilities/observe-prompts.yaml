@@ -1,0 +1,92 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Waxell Observe API — Prompts
+  description: 'Waxell Observe API — Prompts. 1 operations. Lead operation: Get Managed Prompt. Self-contained Naftiko capability
+    covering one Waxell business surface.'
+  tags:
+  - Waxell
+  - Prompts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WAXELL_API_KEY: WAXELL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: observe-prompts
+    baseUri: https://{tenant}.waxell.dev
+    description: Waxell Observe API — Prompts business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-observe-prompts-name
+      path: /api/v1/observe/prompts/{name}/
+      operations:
+      - name: getprompt
+        method: GET
+        description: Get Managed Prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          description: Name of the managed prompt
+          required: true
+        - name: label
+          in: query
+          type: string
+          description: Label (e.g. `production`, `staging`) to resolve to a specific version
+        - name: version
+          in: query
+          type: integer
+          description: Explicit version number
+    authentication:
+      type: bearer
+      token: '{{env.WAXELL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: observe-prompts-rest
+    port: 8080
+    description: REST adapter for Waxell Observe API — Prompts. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/observe/prompts/{name}
+      name: api-v1-observe-prompts-name
+      description: REST surface for api-v1-observe-prompts-name.
+      operations:
+      - method: GET
+        name: getprompt
+        description: Get Managed Prompt
+        call: observe-prompts.getprompt
+        with:
+          name: rest.name
+          label: rest.label
+          version: rest.version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: observe-prompts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Waxell Observe API — Prompts. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-managed-prompt
+      description: Get Managed Prompt
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: observe-prompts.getprompt
+      with:
+        name: tools.name
+        label: tools.label
+        version: tools.version
+      outputParameters:
+      - type: object
+        mapping: $.

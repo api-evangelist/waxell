@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Waxell Observe API — Runs
+  description: 'Waxell Observe API — Runs. 2 operations. Lead operation: Start Run. Self-contained Naftiko capability covering
+    one Waxell business surface.'
+  tags:
+  - Waxell
+  - Runs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WAXELL_API_KEY: WAXELL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: observe-runs
+    baseUri: https://{tenant}.waxell.dev
+    description: Waxell Observe API — Runs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-observe-runs-start
+      path: /api/v1/observe/runs/start/
+      operations:
+      - name: startrun
+        method: POST
+        description: Start Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-observe-runs-run_id-complete
+      path: /api/v1/observe/runs/{run_id}/complete/
+      operations:
+      - name: completerun
+        method: POST
+        description: Complete Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WAXELL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: observe-runs-rest
+    port: 8080
+    description: REST adapter for Waxell Observe API — Runs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/observe/runs/start
+      name: api-v1-observe-runs-start
+      description: REST surface for api-v1-observe-runs-start.
+      operations:
+      - method: POST
+        name: startrun
+        description: Start Run
+        call: observe-runs.startrun
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/observe/runs/{run-id}/complete
+      name: api-v1-observe-runs-run-id-complete
+      description: REST surface for api-v1-observe-runs-run_id-complete.
+      operations:
+      - method: POST
+        name: completerun
+        description: Complete Run
+        call: observe-runs.completerun
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: observe-runs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Waxell Observe API — Runs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: start-run
+      description: Start Run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: observe-runs.startrun
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: complete-run
+      description: Complete Run
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: observe-runs.completerun
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

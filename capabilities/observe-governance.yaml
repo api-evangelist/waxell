@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Waxell Observe API — Governance
+  description: 'Waxell Observe API — Governance. 2 operations. Lead operation: Record Event. Self-contained Naftiko capability
+    covering one Waxell business surface.'
+  tags:
+  - Waxell
+  - Governance
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WAXELL_API_KEY: WAXELL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: observe-governance
+    baseUri: https://{tenant}.waxell.dev
+    description: Waxell Observe API — Governance business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-observe-events
+      path: /api/v1/observe/events/
+      operations:
+      - name: recordevent
+        method: POST
+        description: Record Event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-observe-policy-check
+      path: /api/v1/observe/policy-check/
+      operations:
+      - name: checkpolicy
+        method: POST
+        description: Check Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WAXELL_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: observe-governance-rest
+    port: 8080
+    description: REST adapter for Waxell Observe API — Governance. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v1/observe/events
+      name: api-v1-observe-events
+      description: REST surface for api-v1-observe-events.
+      operations:
+      - method: POST
+        name: recordevent
+        description: Record Event
+        call: observe-governance.recordevent
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/observe/policy-check
+      name: api-v1-observe-policy-check
+      description: REST surface for api-v1-observe-policy-check.
+      operations:
+      - method: POST
+        name: checkpolicy
+        description: Check Policy
+        call: observe-governance.checkpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: observe-governance-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Waxell Observe API — Governance. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: record-event
+      description: Record Event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: observe-governance.recordevent
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-policy
+      description: Check Policy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: observe-governance.checkpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
