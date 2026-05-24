@@ -237,6 +237,8 @@ common:
   sources:
   - https://waxell.ai/
   updated: '2026-05-06'
+- type: LLMsTxt
+  url: https://waxell.ai/llms.txt
 maintainers:
 - FN: Kin Lane
   email: info@apievangelist.com
