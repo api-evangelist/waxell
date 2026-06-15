@@ -1,0 +1,301 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Waxell Observe API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Wax-Key",
+      "value": "{{X-Wax-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/start/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Begin a new agent execution run and obtain a `run_id` used for subsequent telemetry calls."
+        },
+        {
+          "info": {
+            "name": "Complete Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/complete/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark an in-flight run as completed (or failed) and finalize aggregate metrics."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Telemetry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Record LLM Call",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/llm-calls/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Log a single LLM API call (model, tokens, latency, cost) attached to a run."
+        },
+        {
+          "info": {
+            "name": "Record Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/steps/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Record a single execution step within an agent run."
+        },
+        {
+          "info": {
+            "name": "Record Span",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/spans/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Capture an OpenTelemetry-compatible span (tool call, retrieval, decision)."
+        },
+        {
+          "info": {
+            "name": "Record Score",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/scores/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a quality, safety, or evaluation score against a run."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Prompts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Managed Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/prompts/:name/",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the managed prompt"
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Label (e.g. `production`, `staging`) to resolve to a specific version"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Explicit version number"
+              }
+            ]
+          },
+          "docs": "Retrieve a managed prompt by name, optionally pinned to a version or label."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Governance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/policy-check/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Evaluate the configured governance policies for a proposed agent\naction. The response indicates whether to allow, warn, redact,\nthrottle, block, skip, or retry the action.\n"
+        },
+        {
+          "info": {
+            "name": "Record Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/events/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Append a governance or audit event to the immutable audit trail."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cost Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Model Costs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/model-costs/"
+          },
+          "docs": "Return the merged cost table (defaults plus tenant overrides) for known models."
+        },
+        {
+          "info": {
+            "name": "Override Model Cost",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/model-costs/:model_id/",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path",
+                "description": "Provider-qualified model identifier (e.g. `openai/gpt-4o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set a tenant-specific input/output token price for a given model id."
+        },
+        {
+          "info": {
+            "name": "Remove Model Cost Override",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/model-costs/:model_id/",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a tenant-specific override and revert to the default cost."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
