@@ -2,7 +2,7 @@ aid: waxell
 url: https://raw.githubusercontent.com/api-evangelist/waxell/refs/heads/main/apis.yml
 name: Waxell
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 description: >-
   Waxell is an AI agent governance and observability platform that provides runtime policy enforcement,
   auto-instrumented LLM telemetry, MCP governance, cost management, and durable workflow execution for agents built in
@@ -29,7 +29,7 @@ apis:
       - LLM Telemetry
       - Policy Enforcement
       - Cost Management
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://{tenant}.waxell.dev/api/v1/observe
     humanURL: https://waxell.ai/docs/observe/api/endpoints
     description: >-
@@ -70,7 +70,7 @@ apis:
       - AI Agent Governance
       - Developer Tools
       - Coding Agents
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://dev-mcp.waxell.dev
     humanURL: https://waxell.ai/docs/agents/overview
     description: >-
