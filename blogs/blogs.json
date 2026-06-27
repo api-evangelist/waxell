@@ -3,19 +3,18 @@
   "feeds": [
     {
       "source": "https://waxell.ai/blog",
-      "feed_url": "https://waxell.ai/blog",
+      "feed_url": "",
       "title": "",
-      "saved": 0,
-      "method": "none"
+      "saved": 5,
+      "method": "agent-scrape"
     },
     {
       "source": "https://status.waxell.dev",
-      "feed_url": "https://status.waxell.dev",
-      "title": "",
       "saved": 0,
-      "method": "none"
+      "error": "not a blog listing (status page)"
     }
   ],
-  "post_count": 1,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 11,
+  "fetched": "2026-06-27T13:21:42Z",
+  "agent_pulled": "2026-06-27"
 }

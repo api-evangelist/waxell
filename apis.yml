@@ -43,11 +43,11 @@ apis:
         url: https://waxell.ai/docs
       - type: APIReference
         url: https://waxell.ai/docs/observe/api/endpoints
-      - type: Quickstart
+      - type: GettingStarted
         url: https://waxell.ai/docs/observe/quickstart
       - type: Authentication
         url: https://waxell.ai/docs/observe/api/authentication
-      - type: SDK
+      - type: SDKs
         url: https://pypi.org/project/waxell-observe/
       - type: OpenAPI
         url: openapi/waxell-observe-openapi.yml
@@ -92,13 +92,13 @@ common:
     url: https://waxell.ai/docs
   - type: GettingStarted
     url: https://waxell.ai/docs/observe/quickstart
-  - type: Quickstart
+  - type: GettingStarted
     url: https://waxell.ai/docs/observe/quickstart
-  - type: SDK
+  - type: SDKs
     url: https://waxell.ai/docs/observe/quickstart
   - type: Console
     url: https://waxell.dev
-  - type: SignUp
+  - type: Signup
     url: https://waxell.ai/get-access
   - type: Pricing
     url: https://waxell.ai/get-access
@@ -130,13 +130,13 @@ common:
     url: vocabulary/waxell-vocabulary.yml
   - type: JSONLD
     url: json-ld/waxell-context.jsonld
-  - type: Example
+  - type: Examples
     url: examples/waxell-start-run-example.json
-  - type: Example
+  - type: Examples
     url: examples/waxell-record-llm-call-example.json
-  - type: Example
+  - type: Examples
     url: examples/waxell-policy-check-example.json
-  - type: Example
+  - type: Examples
     url: examples/waxell-get-prompt-example.json
   - type: Features
     data:
@@ -238,7 +238,7 @@ common:
     sources:
       - https://waxell.ai/
     updated: '2026-05-06'
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://waxell.ai/llms.txt
 maintainers:
   - FN: Kin Lane
