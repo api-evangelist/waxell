@@ -88,6 +88,10 @@ apis:
       - type: GitHubRepository
         url: https://gitlab.com/waxell/agentforge
 common:
+  - type: DomainSecurity
+    url: security/waxell-domain-security.yml
+  - type: Authentication
+    url: authentication/waxell-authentication.yml
   - type: Documentation
     url: https://waxell.ai/docs
   - type: GettingStarted

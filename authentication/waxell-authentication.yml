@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/waxell-observe-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: WaxKey
+  type: apiKey
+  in: header
+  parameter: X-Wax-Key
+  description: Waxell API key issued in the dashboard. Format `wax_sk_...`.
+  sources:
+  - openapi/waxell-observe-openapi.yml
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: wax_sk
+  description: Same `wax_sk_` key passed as a Bearer token.
+  sources:
+  - openapi/waxell-observe-openapi.yml
