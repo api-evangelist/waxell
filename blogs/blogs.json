@@ -2,19 +2,14 @@
   "repo": "waxell",
   "feeds": [
     {
-      "source": "https://waxell.ai/blog",
-      "feed_url": "",
-      "title": "",
-      "saved": 5,
-      "method": "agent-scrape"
-    },
-    {
       "source": "https://status.waxell.dev",
+      "feed_url": "https://status.waxell.dev",
+      "title": "",
       "saved": 0,
-      "error": "not a blog listing (status page)"
+      "method": "none"
     }
   ],
-  "post_count": 11,
-  "fetched": "2026-06-27T13:21:42Z",
-  "agent_pulled": "2026-06-27"
+  "post_count": 19,
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
