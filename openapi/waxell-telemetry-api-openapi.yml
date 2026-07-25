@@ -1,0 +1,245 @@
+openapi: 3.0.3
+info:
+  title: Waxell Observe Cost Management Telemetry API
+  description: 'The Waxell Observe REST API exposes the AI agent governance and
+
+    observability control plane. It is used by the `waxell-observe` Python
+
+    SDK and Developer MCP server to record agent runs, log LLM calls and
+
+    spans, evaluate runtime governance policies, manage prompts, and
+
+    administer model cost tables.
+
+
+    Endpoints are served from a tenant-specific control plane host
+
+    (e.g. `https://acme.waxell.dev`) at the path prefix
+
+    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
+
+    issued in the dashboard, presented either as `X-Wax-Key` or as a
+
+    `Bearer` token.
+
+    '
+  version: '1.0'
+  contact:
+    name: Waxell
+    url: https://waxell.ai/
+  license:
+    name: Proprietary
+servers:
+- url: https://{tenant}.waxell.dev
+  description: Tenant-specific Waxell control plane
+  variables:
+    tenant:
+      default: acme
+      description: Tenant subdomain provisioned for your organization
+security:
+- WaxKey: []
+- BearerAuth: []
+tags:
+- name: Telemetry
+  description: LLM calls, spans, steps, and quality scores recorded against a run
+paths:
+  /api/v1/observe/runs/{run_id}/llm-calls/:
+    post:
+      tags:
+      - Telemetry
+      summary: Record LLM Call
+      description: Log a single LLM API call (model, tokens, latency, cost) attached to a run.
+      operationId: recordLlmCall
+      parameters:
+      - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LlmCall'
+      responses:
+        '201':
+          description: LLM call recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/v1/observe/runs/{run_id}/steps/:
+    post:
+      tags:
+      - Telemetry
+      summary: Record Step
+      description: Record a single execution step within an agent run.
+      operationId: recordStep
+      parameters:
+      - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Step'
+      responses:
+        '201':
+          description: Step recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Step'
+  /api/v1/observe/runs/{run_id}/spans/:
+    post:
+      tags:
+      - Telemetry
+      summary: Record Span
+      description: Capture an OpenTelemetry-compatible span (tool call, retrieval, decision).
+      operationId: recordSpan
+      parameters:
+      - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Span'
+      responses:
+        '201':
+          description: Span recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+  /api/v1/observe/runs/{run_id}/scores/:
+    post:
+      tags:
+      - Telemetry
+      summary: Record Score
+      description: Submit a quality, safety, or evaluation score against a run.
+      operationId: recordScore
+      parameters:
+      - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Score'
+      responses:
+        '201':
+          description: Score recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Score'
+components:
+  schemas:
+    Step:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        input:
+          type: object
+          additionalProperties: true
+        output:
+          type: object
+          additionalProperties: true
+        started_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+    Span:
+      type: object
+      properties:
+        span_id:
+          type: string
+        parent_span_id:
+          type: string
+        name:
+          type: string
+        kind:
+          type: string
+          enum:
+          - tool
+          - retrieval
+          - decision
+          - llm
+          - custom
+        attributes:
+          type: object
+          additionalProperties: true
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+    Score:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+        value:
+          oneOf:
+          - type: number
+          - type: string
+          - type: boolean
+        comment:
+          type: string
+        evaluator:
+          type: string
+    LlmCall:
+      type: object
+      required:
+      - model
+      properties:
+        id:
+          type: string
+        model:
+          type: string
+        provider:
+          type: string
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+        latency_ms:
+          type: integer
+        cost_usd:
+          type: number
+        prompt:
+          type: string
+        completion:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    RunId:
+      in: path
+      name: run_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the run returned by `POST /runs/start/`.
+  securitySchemes:
+    WaxKey:
+      type: apiKey
+      in: header
+      name: X-Wax-Key
+      description: Waxell API key issued in the dashboard. Format `wax_sk_...`.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: wax_sk
+      description: Same `wax_sk_` key passed as a Bearer token.

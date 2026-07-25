@@ -1,0 +1,211 @@
+openapi: 3.0.3
+info:
+  title: Waxell Observe Cost Management Runs API
+  description: 'The Waxell Observe REST API exposes the AI agent governance and
+
+    observability control plane. It is used by the `waxell-observe` Python
+
+    SDK and Developer MCP server to record agent runs, log LLM calls and
+
+    spans, evaluate runtime governance policies, manage prompts, and
+
+    administer model cost tables.
+
+
+    Endpoints are served from a tenant-specific control plane host
+
+    (e.g. `https://acme.waxell.dev`) at the path prefix
+
+    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
+
+    issued in the dashboard, presented either as `X-Wax-Key` or as a
+
+    `Bearer` token.
+
+    '
+  version: '1.0'
+  contact:
+    name: Waxell
+    url: https://waxell.ai/
+  license:
+    name: Proprietary
+servers:
+- url: https://{tenant}.waxell.dev
+  description: Tenant-specific Waxell control plane
+  variables:
+    tenant:
+      default: acme
+      description: Tenant subdomain provisioned for your organization
+security:
+- WaxKey: []
+- BearerAuth: []
+tags:
+- name: Runs
+  description: Lifecycle endpoints for agent execution runs
+paths:
+  /api/v1/observe/runs/start/:
+    post:
+      tags:
+      - Runs
+      summary: Start Run
+      description: Begin a new agent execution run and obtain a `run_id` used for subsequent telemetry calls.
+      operationId: startRun
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunStartRequest'
+      responses:
+        '201':
+          description: Run created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /api/v1/observe/runs/{run_id}/complete/:
+    post:
+      tags:
+      - Runs
+      summary: Complete Run
+      description: Mark an in-flight run as completed (or failed) and finalize aggregate metrics.
+      operationId: completeRun
+      parameters:
+      - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunCompleteRequest'
+      responses:
+        '200':
+          description: Run finalized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    RateLimited:
+      description: Rate limit or governance throttle triggered.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Request payload was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Run:
+      type: object
+      properties:
+        run_id:
+          type: string
+          format: uuid
+        agent_name:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - running
+          - paused
+          - completed
+          - failed
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        total_cost_usd:
+          type: number
+        total_tokens:
+          type: integer
+        session_id:
+          type: string
+        user_id:
+          type: string
+    RunCompleteRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - completed
+          - failed
+          - cancelled
+        output:
+          type: string
+        error:
+          type: string
+    RunStartRequest:
+      type: object
+      required:
+      - agent_name
+      properties:
+        agent_name:
+          type: string
+        session_id:
+          type: string
+        user_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+      required:
+      - error
+      - message
+  parameters:
+    RunId:
+      in: path
+      name: run_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the run returned by `POST /runs/start/`.
+  securitySchemes:
+    WaxKey:
+      type: apiKey
+      in: header
+      name: X-Wax-Key
+      description: Waxell API key issued in the dashboard. Format `wax_sk_...`.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: wax_sk
+      description: Same `wax_sk_` key passed as a Bearer token.

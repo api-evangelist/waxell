@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: Waxell Observe Cost Management API
+  description: 'The Waxell Observe REST API exposes the AI agent governance and
+
+    observability control plane. It is used by the `waxell-observe` Python
+
+    SDK and Developer MCP server to record agent runs, log LLM calls and
+
+    spans, evaluate runtime governance policies, manage prompts, and
+
+    administer model cost tables.
+
+
+    Endpoints are served from a tenant-specific control plane host
+
+    (e.g. `https://acme.waxell.dev`) at the path prefix
+
+    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
+
+    issued in the dashboard, presented either as `X-Wax-Key` or as a
+
+    `Bearer` token.
+
+    '
+  version: '1.0'
+  contact:
+    name: Waxell
+    url: https://waxell.ai/
+  license:
+    name: Proprietary
+servers:
+- url: https://{tenant}.waxell.dev
+  description: Tenant-specific Waxell control plane
+  variables:
+    tenant:
+      default: acme
+      description: Tenant subdomain provisioned for your organization
+security:
+- WaxKey: []
+- BearerAuth: []
+tags:
+- name: Cost Management
+  description: Model cost catalog and tenant-level overrides
+paths:
+  /api/v1/observe/model-costs/:
+    get:
+      tags:
+      - Cost Management
+      summary: List Model Costs
+      description: Return the merged cost table (defaults plus tenant overrides) for known models.
+      operationId: listModelCosts
+      responses:
+        '200':
+          description: Cost table
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModelCost'
+  /api/v1/observe/model-costs/{model_id}/:
+    put:
+      tags:
+      - Cost Management
+      summary: Override Model Cost
+      description: Set a tenant-specific input/output token price for a given model id.
+      operationId: setModelCost
+      parameters:
+      - in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+        description: Provider-qualified model identifier (e.g. `openai/gpt-4o`).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelCost'
+      responses:
+        '200':
+          description: Override saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelCost'
+    delete:
+      tags:
+      - Cost Management
+      summary: Remove Model Cost Override
+      description: Remove a tenant-specific override and revert to the default cost.
+      operationId: deleteModelCost
+      parameters:
+      - in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Override removed
+components:
+  schemas:
+    ModelCost:
+      type: object
+      required:
+      - model_id
+      properties:
+        model_id:
+          type: string
+        provider:
+          type: string
+        input_cost_per_million:
+          type: number
+        output_cost_per_million:
+          type: number
+        currency:
+          type: string
+          default: USD
+        is_override:
+          type: boolean
+  securitySchemes:
+    WaxKey:
+      type: apiKey
+      in: header
+      name: X-Wax-Key
+      description: Waxell API key issued in the dashboard. Format `wax_sk_...`.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: wax_sk
+      description: Same `wax_sk_` key passed as a Bearer token.

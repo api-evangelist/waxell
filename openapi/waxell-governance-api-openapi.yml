@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: Waxell Observe Cost Management Governance API
+  description: 'The Waxell Observe REST API exposes the AI agent governance and
+
+    observability control plane. It is used by the `waxell-observe` Python
+
+    SDK and Developer MCP server to record agent runs, log LLM calls and
+
+    spans, evaluate runtime governance policies, manage prompts, and
+
+    administer model cost tables.
+
+
+    Endpoints are served from a tenant-specific control plane host
+
+    (e.g. `https://acme.waxell.dev`) at the path prefix
+
+    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
+
+    issued in the dashboard, presented either as `X-Wax-Key` or as a
+
+    `Bearer` token.
+
+    '
+  version: '1.0'
+  contact:
+    name: Waxell
+    url: https://waxell.ai/
+  license:
+    name: Proprietary
+servers:
+- url: https://{tenant}.waxell.dev
+  description: Tenant-specific Waxell control plane
+  variables:
+    tenant:
+      default: acme
+      description: Tenant subdomain provisioned for your organization
+security:
+- WaxKey: []
+- BearerAuth: []
+tags:
+- name: Governance
+  description: Pre-execution policy checks and audit events
+paths:
+  /api/v1/observe/policy-check/:
+    post:
+      tags:
+      - Governance
+      summary: Check Policy
+      description: 'Evaluate the configured governance policies for a proposed agent
+
+        action. The response indicates whether to allow, warn, redact,
+
+        throttle, block, skip, or retry the action.
+
+        '
+      operationId: checkPolicy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCheckRequest'
+      responses:
+        '200':
+          description: Decision returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDecision'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /api/v1/observe/events/:
+    post:
+      tags:
+      - Governance
+      summary: Record Event
+      description: Append a governance or audit event to the immutable audit trail.
+      operationId: recordEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Event recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+components:
+  responses:
+    RateLimited:
+      description: Rate limit or governance throttle triggered.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Event:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        severity:
+          type: string
+          enum:
+          - info
+          - warning
+          - error
+          - critical
+        attributes:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+    PolicyCheckRequest:
+      type: object
+      required:
+      - agent_name
+      - action
+      properties:
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        action:
+          type: string
+          description: Proposed action (e.g. tool name, LLM model, network destination).
+        context:
+          type: object
+          additionalProperties: true
+    PolicyDecision:
+      type: object
+      properties:
+        decision:
+          type: string
+          enum:
+          - allow
+          - warn
+          - redact
+          - throttle
+          - block
+          - skip
+          - retry
+        policy_id:
+          type: string
+        category:
+          type: string
+          description: One of the 26 policy categories (e.g. `cost_management`, `data_access`).
+        reason:
+          type: string
+        retry_after_seconds:
+          type: integer
+        redacted_content:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+      required:
+      - error
+      - message
+  securitySchemes:
+    WaxKey:
+      type: apiKey
+      in: header
+      name: X-Wax-Key
+      description: Waxell API key issued in the dashboard. Format `wax_sk_...`.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: wax_sk
+      description: Same `wax_sk_` key passed as a Bearer token.
