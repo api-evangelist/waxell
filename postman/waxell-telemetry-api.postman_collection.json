@@ -1,0 +1,629 @@
+{
+  "info": {
+    "_postman_id": "66938362-577f-4f4b-be22-e5b9f2610cb6",
+    "name": "Waxell Observe Cost Management Telemetry API",
+    "description": "The Waxell Observe REST API exposes the AI agent governance and\nobservability control plane. It is used by the `waxell-observe` Python\nSDK and Developer MCP server to record agent runs, log LLM calls and\nspans, evaluate runtime governance policies, manage prompts, and\nadminister model cost tables.\n\nEndpoints are served from a tenant-specific control plane host\n(e.g. `https://acme.waxell.dev`) at the path prefix\n`/api/v1/observe/`. Authentication uses the same `wax_sk_` keys\nissued in the dashboard, presented either as `X-Wax-Key` or as a\n`Bearer` token.\n\n\nContact Support:\n Name: Waxell",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:13.000Z",
+    "updatedAt": "2026-07-28T03:29:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-66938362-577f-4f4b-be22-e5b9f2610cb6"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "observe",
+              "item": [
+                {
+                  "name": "runs",
+                  "item": [
+                    {
+                      "name": "{run_id}",
+                      "item": [
+                        {
+                          "name": "llm-calls",
+                          "item": [
+                            {
+                              "name": "Record LLM Call",
+                              "id": "5f2f3985-72e9-438b-96de-413ec45d6c83",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"model\": \"<string>\",\n  \"id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"latency_ms\": \"<integer>\",\n  \"cost_usd\": \"<number>\",\n  \"prompt\": \"<string>\",\n  \"completion\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/llm-calls/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    ":run_id",
+                                    "llm-calls",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b32bd4e6-2ded-4387-85c2-7f66d36f4381",
+                                      "key": "run_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                                    }
+                                  ]
+                                },
+                                "description": "Log a single LLM API call (model, tokens, latency, cost) attached to a run."
+                              },
+                              "response": [
+                                {
+                                  "id": "ee073f60-38f7-40e4-8669-e4ca5034aba9",
+                                  "name": "LLM call recorded",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Wax-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"model\": \"<string>\",\n  \"id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"latency_ms\": \"<integer>\",\n  \"cost_usd\": \"<number>\",\n  \"prompt\": \"<string>\",\n  \"completion\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/llm-calls/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "observe",
+                                        "runs",
+                                        ":run_id",
+                                        "llm-calls",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "run_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"model\": \"<string>\",\n  \"id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"latency_ms\": \"<integer>\",\n  \"cost_usd\": \"<number>\",\n  \"prompt\": \"<string>\",\n  \"completion\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T03:29:14.000Z",
+                                  "updatedAt": "2026-07-28T03:29:14.000Z",
+                                  "uid": "35240-ee073f60-38f7-40e4-8669-e4ca5034aba9"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:29:14.000Z",
+                              "updatedAt": "2026-07-28T03:29:14.000Z",
+                              "uid": "35240-5f2f3985-72e9-438b-96de-413ec45d6c83"
+                            }
+                          ],
+                          "id": "8c104327-14de-4d8f-99cf-43212619cbfa",
+                          "createdAt": "2026-07-28T03:29:14.000Z",
+                          "updatedAt": "2026-07-28T03:29:14.000Z",
+                          "uid": "35240-8c104327-14de-4d8f-99cf-43212619cbfa"
+                        },
+                        {
+                          "name": "steps",
+                          "item": [
+                            {
+                              "name": "Record Step",
+                              "id": "a245636f-5e48-4255-8330-17b9b084149e",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"input\": {\n    \"id_d3\": true,\n    \"deserunt_c\": -90740661.88690057\n  },\n  \"output\": {\n    \"ullamco6\": true\n  },\n  \"started_at\": \"<dateTime>\",\n  \"ended_at\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/steps/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    ":run_id",
+                                    "steps",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "cfe2a6d4-e451-4612-b8a1-f3ef3916a306",
+                                      "key": "run_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                                    }
+                                  ]
+                                },
+                                "description": "Record a single execution step within an agent run."
+                              },
+                              "response": [
+                                {
+                                  "id": "2543290f-8382-415e-b0e5-2b7cbcd737f0",
+                                  "name": "Step recorded",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Wax-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"input\": {\n    \"id_d3\": true,\n    \"deserunt_c\": -90740661.88690057\n  },\n  \"output\": {\n    \"ullamco6\": true\n  },\n  \"started_at\": \"<dateTime>\",\n  \"ended_at\": \"<dateTime>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/steps/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "observe",
+                                        "runs",
+                                        ":run_id",
+                                        "steps",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "run_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"input\": {\n    \"id_d3\": true,\n    \"deserunt_c\": -90740661.88690057\n  },\n  \"output\": {\n    \"ullamco6\": true\n  },\n  \"started_at\": \"<dateTime>\",\n  \"ended_at\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T03:29:14.000Z",
+                                  "updatedAt": "2026-07-28T03:29:14.000Z",
+                                  "uid": "35240-2543290f-8382-415e-b0e5-2b7cbcd737f0"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:29:14.000Z",
+                              "updatedAt": "2026-07-28T03:29:14.000Z",
+                              "uid": "35240-a245636f-5e48-4255-8330-17b9b084149e"
+                            }
+                          ],
+                          "id": "c356296d-0192-47e1-b6c5-6a8c806963f7",
+                          "createdAt": "2026-07-28T03:29:14.000Z",
+                          "updatedAt": "2026-07-28T03:29:14.000Z",
+                          "uid": "35240-c356296d-0192-47e1-b6c5-6a8c806963f7"
+                        },
+                        {
+                          "name": "spans",
+                          "item": [
+                            {
+                              "name": "Record Span",
+                              "id": "7fad1c0c-5798-4fa4-8aae-3af2e52df277",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"span_id\": \"<string>\",\n  \"parent_span_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"kind\": \"decision\",\n  \"attributes\": {\n    \"aliquip_0\": 3117703.4875479788,\n    \"anim5\": -3603897\n  },\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/spans/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    ":run_id",
+                                    "spans",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "0d1ea00c-a905-4934-a0f7-91202e4142ce",
+                                      "key": "run_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                                    }
+                                  ]
+                                },
+                                "description": "Capture an OpenTelemetry-compatible span (tool call, retrieval, decision)."
+                              },
+                              "response": [
+                                {
+                                  "id": "50848d70-d173-4af8-ab21-b01f35efa34b",
+                                  "name": "Span recorded",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Wax-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"span_id\": \"<string>\",\n  \"parent_span_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"kind\": \"decision\",\n  \"attributes\": {\n    \"aliquip_0\": 3117703.4875479788,\n    \"anim5\": -3603897\n  },\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/spans/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "observe",
+                                        "runs",
+                                        ":run_id",
+                                        "spans",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "run_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"span_id\": \"<string>\",\n  \"parent_span_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"kind\": \"decision\",\n  \"attributes\": {\n    \"aliquip_0\": 3117703.4875479788,\n    \"anim5\": -3603897\n  },\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T03:29:14.000Z",
+                                  "updatedAt": "2026-07-28T03:29:14.000Z",
+                                  "uid": "35240-50848d70-d173-4af8-ab21-b01f35efa34b"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:29:14.000Z",
+                              "updatedAt": "2026-07-28T03:29:14.000Z",
+                              "uid": "35240-7fad1c0c-5798-4fa4-8aae-3af2e52df277"
+                            }
+                          ],
+                          "id": "795cac56-35d5-4917-a6f1-b9acf7343995",
+                          "createdAt": "2026-07-28T03:29:14.000Z",
+                          "updatedAt": "2026-07-28T03:29:14.000Z",
+                          "uid": "35240-795cac56-35d5-4917-a6f1-b9acf7343995"
+                        },
+                        {
+                          "name": "scores",
+                          "item": [
+                            {
+                              "name": "Record Score",
+                              "id": "af3c9632-76ce-4e33-89d3-b66f3c0b205c",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<number>\",\n  \"comment\": \"<string>\",\n  \"evaluator\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/scores/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    ":run_id",
+                                    "scores",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "97889b88-b363-4d7e-a0e8-1da30d93d844",
+                                      "key": "run_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                                    }
+                                  ]
+                                },
+                                "description": "Submit a quality, safety, or evaluation score against a run."
+                              },
+                              "response": [
+                                {
+                                  "id": "5427a256-8737-432b-8336-a488b84147fb",
+                                  "name": "Score recorded",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Wax-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<number>\",\n  \"comment\": \"<string>\",\n  \"evaluator\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/scores/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "observe",
+                                        "runs",
+                                        ":run_id",
+                                        "scores",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "run_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"name\": \"<string>\",\n  \"value\": \"<number>\",\n  \"comment\": \"<string>\",\n  \"evaluator\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T03:29:14.000Z",
+                                  "updatedAt": "2026-07-28T03:29:14.000Z",
+                                  "uid": "35240-5427a256-8737-432b-8336-a488b84147fb"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:29:14.000Z",
+                              "updatedAt": "2026-07-28T03:29:14.000Z",
+                              "uid": "35240-af3c9632-76ce-4e33-89d3-b66f3c0b205c"
+                            }
+                          ],
+                          "id": "453d9011-76b0-41a6-b0d8-225ad5c5ea8b",
+                          "createdAt": "2026-07-28T03:29:14.000Z",
+                          "updatedAt": "2026-07-28T03:29:14.000Z",
+                          "uid": "35240-453d9011-76b0-41a6-b0d8-225ad5c5ea8b"
+                        }
+                      ],
+                      "id": "aca0b159-5d8a-4009-b62d-105dbfd9c32b",
+                      "createdAt": "2026-07-28T03:29:14.000Z",
+                      "updatedAt": "2026-07-28T03:29:14.000Z",
+                      "uid": "35240-aca0b159-5d8a-4009-b62d-105dbfd9c32b"
+                    }
+                  ],
+                  "id": "253ada3d-087c-450e-be34-f6acbd89a5ed",
+                  "createdAt": "2026-07-28T03:29:14.000Z",
+                  "updatedAt": "2026-07-28T03:29:14.000Z",
+                  "uid": "35240-253ada3d-087c-450e-be34-f6acbd89a5ed"
+                }
+              ],
+              "id": "570761cd-05a6-4c30-b904-09f2e3a7005a",
+              "createdAt": "2026-07-28T03:29:14.000Z",
+              "updatedAt": "2026-07-28T03:29:14.000Z",
+              "uid": "35240-570761cd-05a6-4c30-b904-09f2e3a7005a"
+            }
+          ],
+          "id": "4e59ddc0-971a-464d-885b-171bf2cdcb65",
+          "createdAt": "2026-07-28T03:29:14.000Z",
+          "updatedAt": "2026-07-28T03:29:14.000Z",
+          "uid": "35240-4e59ddc0-971a-464d-885b-171bf2cdcb65"
+        }
+      ],
+      "id": "ac57b164-cd28-4491-93f1-5734f78744c3",
+      "createdAt": "2026-07-28T03:29:14.000Z",
+      "updatedAt": "2026-07-28T03:29:14.000Z",
+      "uid": "35240-ac57b164-cd28-4491-93f1-5734f78744c3"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Wax-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "acme"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.waxell.dev"
+    }
+  ]
+}

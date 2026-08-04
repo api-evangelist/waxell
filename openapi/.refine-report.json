@@ -1,0 +1,22 @@
+{
+  "provider": "waxell",
+  "sources": [
+    "waxell-cost-management-api-openapi.yml",
+    "waxell-governance-api-openapi.yml",
+    "waxell-prompts-api-openapi.yml",
+    "waxell-runs-api-openapi.yml",
+    "waxell-telemetry-api-openapi.yml"
+  ],
+  "outputs": [
+    "waxell-cost-management-api-openapi.yml",
+    "waxell-governance-api-openapi.yml",
+    "waxell-prompts-api-openapi.yml",
+    "waxell-runs-api-openapi.yml",
+    "waxell-telemetry-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

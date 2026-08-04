@@ -1,0 +1,594 @@
+{
+  "info": {
+    "_postman_id": "840ffb55-dd03-47bf-8dc8-468ad150b31a",
+    "name": "Waxell Observe Cost Management Runs API",
+    "description": "The Waxell Observe REST API exposes the AI agent governance and\nobservability control plane. It is used by the `waxell-observe` Python\nSDK and Developer MCP server to record agent runs, log LLM calls and\nspans, evaluate runtime governance policies, manage prompts, and\nadminister model cost tables.\n\nEndpoints are served from a tenant-specific control plane host\n(e.g. `https://acme.waxell.dev`) at the path prefix\n`/api/v1/observe/`. Authentication uses the same `wax_sk_` keys\nissued in the dashboard, presented either as `X-Wax-Key` or as a\n`Bearer` token.\n\n\nContact Support:\n Name: Waxell",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:12.000Z",
+    "updatedAt": "2026-07-28T03:29:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-840ffb55-dd03-47bf-8dc8-468ad150b31a"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "observe",
+              "item": [
+                {
+                  "name": "runs",
+                  "item": [
+                    {
+                      "name": "start",
+                      "item": [
+                        {
+                          "name": "Start Run",
+                          "id": "0a3838f1-9ce8-4a4b-8e1d-e56eb016044f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"agent_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"metadata\": {\n    \"adipisicingbe7\": 85945576\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/observe/runs/start/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "observe",
+                                "runs",
+                                "start",
+                                ""
+                              ]
+                            },
+                            "description": "Begin a new agent execution run and obtain a `run_id` used for subsequent telemetry calls."
+                          },
+                          "response": [
+                            {
+                              "id": "115f51dc-1737-4eac-93a1-36e8df657920",
+                              "name": "Run created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Wax-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"agent_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"metadata\": {\n    \"adipisicingbe7\": 85945576\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/start/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    "start",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"run_id\": \"<uuid>\",\n  \"agent_name\": \"<string>\",\n  \"status\": \"paused\",\n  \"started_at\": \"<dateTime>\",\n  \"completed_at\": \"<dateTime>\",\n  \"total_cost_usd\": \"<number>\",\n  \"total_tokens\": \"<integer>\",\n  \"session_id\": \"<string>\",\n  \"user_id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:29:13.000Z",
+                              "updatedAt": "2026-07-28T03:29:13.000Z",
+                              "uid": "35240-115f51dc-1737-4eac-93a1-36e8df657920"
+                            },
+                            {
+                              "id": "8388e735-1eda-47e6-ad42-b72221537460",
+                              "name": "Request payload was malformed or failed validation.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Wax-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"agent_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"metadata\": {\n    \"adipisicingbe7\": 85945576\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/start/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    "start",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:29:13.000Z",
+                              "updatedAt": "2026-07-28T03:29:13.000Z",
+                              "uid": "35240-8388e735-1eda-47e6-ad42-b72221537460"
+                            },
+                            {
+                              "id": "0d8fad9a-2db2-44dd-9200-1ea6e973da06",
+                              "name": "API key is missing or invalid.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Wax-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"agent_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"metadata\": {\n    \"adipisicingbe7\": 85945576\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/start/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    "start",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:29:13.000Z",
+                              "updatedAt": "2026-07-28T03:29:13.000Z",
+                              "uid": "35240-0d8fad9a-2db2-44dd-9200-1ea6e973da06"
+                            },
+                            {
+                              "id": "72771320-fd57-41b6-b118-07ca3f36fb6f",
+                              "name": "Rate limit or governance throttle triggered.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Wax-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"agent_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"metadata\": {\n    \"adipisicingbe7\": 85945576\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/start/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    "start",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:29:13.000Z",
+                              "updatedAt": "2026-07-28T03:29:13.000Z",
+                              "uid": "35240-72771320-fd57-41b6-b118-07ca3f36fb6f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:29:13.000Z",
+                          "updatedAt": "2026-07-28T03:29:13.000Z",
+                          "uid": "35240-0a3838f1-9ce8-4a4b-8e1d-e56eb016044f"
+                        }
+                      ],
+                      "id": "4ea96d4e-25bd-4b37-b7a7-ec3541075cc9",
+                      "createdAt": "2026-07-28T03:29:13.000Z",
+                      "updatedAt": "2026-07-28T03:29:13.000Z",
+                      "uid": "35240-4ea96d4e-25bd-4b37-b7a7-ec3541075cc9"
+                    },
+                    {
+                      "name": "{run_id}",
+                      "item": [
+                        {
+                          "name": "complete",
+                          "item": [
+                            {
+                              "name": "Complete Run",
+                              "id": "bd2c720d-a305-4616-93b8-73f62bbb5f0a",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"status\": \"cancelled\",\n  \"output\": \"<string>\",\n  \"error\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/complete/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "runs",
+                                    ":run_id",
+                                    "complete",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5a3d98d4-8816-42f9-96a8-3ef81c853edc",
+                                      "key": "run_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                                    }
+                                  ]
+                                },
+                                "description": "Mark an in-flight run as completed (or failed) and finalize aggregate metrics."
+                              },
+                              "response": [
+                                {
+                                  "id": "c249e7e1-84e3-431d-b24a-0af16cf03376",
+                                  "name": "Run finalized",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Wax-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"status\": \"cancelled\",\n  \"output\": \"<string>\",\n  \"error\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/complete/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "observe",
+                                        "runs",
+                                        ":run_id",
+                                        "complete",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "run_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"run_id\": \"<uuid>\",\n  \"agent_name\": \"<string>\",\n  \"status\": \"paused\",\n  \"started_at\": \"<dateTime>\",\n  \"completed_at\": \"<dateTime>\",\n  \"total_cost_usd\": \"<number>\",\n  \"total_tokens\": \"<integer>\",\n  \"session_id\": \"<string>\",\n  \"user_id\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T03:29:13.000Z",
+                                  "updatedAt": "2026-07-28T03:29:13.000Z",
+                                  "uid": "35240-c249e7e1-84e3-431d-b24a-0af16cf03376"
+                                },
+                                {
+                                  "id": "8d3314f3-5ff1-43e2-9e87-369812127569",
+                                  "name": "Resource does not exist.",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Wax-Key",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"status\": \"cancelled\",\n  \"output\": \"<string>\",\n  \"error\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v1/observe/runs/:run_id/complete/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v1",
+                                        "observe",
+                                        "runs",
+                                        ":run_id",
+                                        "complete",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "run_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T03:29:13.000Z",
+                                  "updatedAt": "2026-07-28T03:29:13.000Z",
+                                  "uid": "35240-8d3314f3-5ff1-43e2-9e87-369812127569"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:29:13.000Z",
+                              "updatedAt": "2026-07-28T03:29:13.000Z",
+                              "uid": "35240-bd2c720d-a305-4616-93b8-73f62bbb5f0a"
+                            }
+                          ],
+                          "id": "64daf5b1-25f3-4a90-8f3c-9d269bde3164",
+                          "createdAt": "2026-07-28T03:29:13.000Z",
+                          "updatedAt": "2026-07-28T03:29:13.000Z",
+                          "uid": "35240-64daf5b1-25f3-4a90-8f3c-9d269bde3164"
+                        }
+                      ],
+                      "id": "144139f2-4e7b-43b2-b8a3-005db8cf01c1",
+                      "createdAt": "2026-07-28T03:29:13.000Z",
+                      "updatedAt": "2026-07-28T03:29:13.000Z",
+                      "uid": "35240-144139f2-4e7b-43b2-b8a3-005db8cf01c1"
+                    }
+                  ],
+                  "id": "e36caf87-40f2-4940-ac93-bce695bd95a4",
+                  "createdAt": "2026-07-28T03:29:13.000Z",
+                  "updatedAt": "2026-07-28T03:29:13.000Z",
+                  "uid": "35240-e36caf87-40f2-4940-ac93-bce695bd95a4"
+                }
+              ],
+              "id": "fa31d187-3b38-4da0-ae4a-6ad7d82ef769",
+              "createdAt": "2026-07-28T03:29:13.000Z",
+              "updatedAt": "2026-07-28T03:29:13.000Z",
+              "uid": "35240-fa31d187-3b38-4da0-ae4a-6ad7d82ef769"
+            }
+          ],
+          "id": "a5dbf85d-5c0c-430a-b85e-a7c102ff531b",
+          "createdAt": "2026-07-28T03:29:13.000Z",
+          "updatedAt": "2026-07-28T03:29:13.000Z",
+          "uid": "35240-a5dbf85d-5c0c-430a-b85e-a7c102ff531b"
+        }
+      ],
+      "id": "4d9d5565-a05f-4ef9-b58f-ce065c5d2607",
+      "createdAt": "2026-07-28T03:29:13.000Z",
+      "updatedAt": "2026-07-28T03:29:13.000Z",
+      "uid": "35240-4d9d5565-a05f-4ef9-b58f-ce065c5d2607"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Wax-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "acme"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.waxell.dev"
+    }
+  ]
+}

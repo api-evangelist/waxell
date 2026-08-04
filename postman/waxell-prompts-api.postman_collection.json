@@ -1,0 +1,273 @@
+{
+  "info": {
+    "_postman_id": "6ac62a32-c596-48a9-9dd4-046d19825592",
+    "name": "Waxell Observe Cost Management Prompts API",
+    "description": "The Waxell Observe REST API exposes the AI agent governance and\nobservability control plane. It is used by the `waxell-observe` Python\nSDK and Developer MCP server to record agent runs, log LLM calls and\nspans, evaluate runtime governance policies, manage prompts, and\nadminister model cost tables.\n\nEndpoints are served from a tenant-specific control plane host\n(e.g. `https://acme.waxell.dev`) at the path prefix\n`/api/v1/observe/`. Authentication uses the same `wax_sk_` keys\nissued in the dashboard, presented either as `X-Wax-Key` or as a\n`Bearer` token.\n\n\nContact Support:\n Name: Waxell",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:11.000Z",
+    "updatedAt": "2026-07-28T03:29:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6ac62a32-c596-48a9-9dd4-046d19825592"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "observe",
+              "item": [
+                {
+                  "name": "prompts",
+                  "item": [
+                    {
+                      "name": "{name}",
+                      "item": [
+                        {
+                          "name": "Get Managed Prompt",
+                          "id": "ecaec07c-372c-4e86-854e-f1cd6aebd0b3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/observe/prompts/:name/?label=<string>&version=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "observe",
+                                "prompts",
+                                ":name",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "Label (e.g. `production`, `staging`) to resolve to a specific version",
+                                  "key": "label",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Explicit version number",
+                                  "key": "version",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "eece9dfe-25d0-4d59-ae5d-e39b9ee38488",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the managed prompt"
+                                }
+                              ]
+                            },
+                            "description": "Retrieve a managed prompt by name, optionally pinned to a version or label."
+                          },
+                          "response": [
+                            {
+                              "id": "5a43657c-3999-4b26-ae7b-b153d93ea266",
+                              "name": "Prompt retrieved",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Wax-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/prompts/:name/?label=<string>&version=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "prompts",
+                                    ":name",
+                                    ""
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Label (e.g. `production`, `staging`) to resolve to a specific version",
+                                      "key": "label",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Explicit version number",
+                                      "key": "version",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\",\n  \"template\": \"<string>\",\n  \"variables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"in_4\": -54890703\n  }\n}",
+                              "createdAt": "2026-07-28T03:29:12.000Z",
+                              "updatedAt": "2026-07-28T03:29:12.000Z",
+                              "uid": "35240-5a43657c-3999-4b26-ae7b-b153d93ea266"
+                            },
+                            {
+                              "id": "24bbf635-28d6-4d56-9938-299d974582a5",
+                              "name": "Resource does not exist.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Wax-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/observe/prompts/:name/?label=<string>&version=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "observe",
+                                    "prompts",
+                                    ":name",
+                                    ""
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Label (e.g. `production`, `staging`) to resolve to a specific version",
+                                      "key": "label",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Explicit version number",
+                                      "key": "version",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:29:12.000Z",
+                              "updatedAt": "2026-07-28T03:29:12.000Z",
+                              "uid": "35240-24bbf635-28d6-4d56-9938-299d974582a5"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:29:12.000Z",
+                          "updatedAt": "2026-07-28T03:29:12.000Z",
+                          "uid": "35240-ecaec07c-372c-4e86-854e-f1cd6aebd0b3"
+                        }
+                      ],
+                      "id": "1b7759f1-67b8-4b54-a2cc-4ad8933affb1",
+                      "createdAt": "2026-07-28T03:29:12.000Z",
+                      "updatedAt": "2026-07-28T03:29:12.000Z",
+                      "uid": "35240-1b7759f1-67b8-4b54-a2cc-4ad8933affb1"
+                    }
+                  ],
+                  "id": "7c8b31bc-7efc-44b5-ad3b-edf7195e41a3",
+                  "createdAt": "2026-07-28T03:29:12.000Z",
+                  "updatedAt": "2026-07-28T03:29:12.000Z",
+                  "uid": "35240-7c8b31bc-7efc-44b5-ad3b-edf7195e41a3"
+                }
+              ],
+              "id": "83d90a05-d66f-4dca-bf75-2dc9a0d5d20e",
+              "createdAt": "2026-07-28T03:29:12.000Z",
+              "updatedAt": "2026-07-28T03:29:12.000Z",
+              "uid": "35240-83d90a05-d66f-4dca-bf75-2dc9a0d5d20e"
+            }
+          ],
+          "id": "3167f9a7-2c3c-41a0-99da-14fc3cc05d1c",
+          "createdAt": "2026-07-28T03:29:12.000Z",
+          "updatedAt": "2026-07-28T03:29:12.000Z",
+          "uid": "35240-3167f9a7-2c3c-41a0-99da-14fc3cc05d1c"
+        }
+      ],
+      "id": "4559e3c0-de39-42a2-ae83-e189ebc85701",
+      "createdAt": "2026-07-28T03:29:12.000Z",
+      "updatedAt": "2026-07-28T03:29:12.000Z",
+      "uid": "35240-4559e3c0-de39-42a2-ae83-e189ebc85701"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Wax-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "acme"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.waxell.dev"
+    }
+  ]
+}

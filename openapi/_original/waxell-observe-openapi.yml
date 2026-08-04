@@ -1,0 +1,601 @@
+openapi: 3.0.3
+info:
+  title: Waxell Observe API
+  description: |
+    The Waxell Observe REST API exposes the AI agent governance and
+    observability control plane. It is used by the `waxell-observe` Python
+    SDK and Developer MCP server to record agent runs, log LLM calls and
+    spans, evaluate runtime governance policies, manage prompts, and
+    administer model cost tables.
+
+    Endpoints are served from a tenant-specific control plane host
+    (e.g. `https://acme.waxell.dev`) at the path prefix
+    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
+    issued in the dashboard, presented either as `X-Wax-Key` or as a
+    `Bearer` token.
+  version: '1.0'
+  contact:
+    name: Waxell
+    url: https://waxell.ai/
+  license:
+    name: Proprietary
+servers:
+  - url: https://{tenant}.waxell.dev
+    description: Tenant-specific Waxell control plane
+    variables:
+      tenant:
+        default: acme
+        description: Tenant subdomain provisioned for your organization
+security:
+  - WaxKey: []
+  - BearerAuth: []
+tags:
+  - name: Runs
+    description: Lifecycle endpoints for agent execution runs
+  - name: Telemetry
+    description: LLM calls, spans, steps, and quality scores recorded against a run
+  - name: Prompts
+    description: Managed prompts retrievable by name and version
+  - name: Governance
+    description: Pre-execution policy checks and audit events
+  - name: Cost Management
+    description: Model cost catalog and tenant-level overrides
+paths:
+  /api/v1/observe/runs/start/:
+    post:
+      tags:
+        - Runs
+      summary: Start Run
+      description: Begin a new agent execution run and obtain a `run_id` used for subsequent telemetry calls.
+      operationId: startRun
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunStartRequest'
+      responses:
+        '201':
+          description: Run created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /api/v1/observe/runs/{run_id}/complete/:
+    post:
+      tags:
+        - Runs
+      summary: Complete Run
+      description: Mark an in-flight run as completed (or failed) and finalize aggregate metrics.
+      operationId: completeRun
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunCompleteRequest'
+      responses:
+        '200':
+          description: Run finalized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/observe/runs/{run_id}/llm-calls/:
+    post:
+      tags:
+        - Telemetry
+      summary: Record LLM Call
+      description: Log a single LLM API call (model, tokens, latency, cost) attached to a run.
+      operationId: recordLlmCall
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LlmCall'
+      responses:
+        '201':
+          description: LLM call recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/v1/observe/runs/{run_id}/steps/:
+    post:
+      tags:
+        - Telemetry
+      summary: Record Step
+      description: Record a single execution step within an agent run.
+      operationId: recordStep
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Step'
+      responses:
+        '201':
+          description: Step recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Step'
+  /api/v1/observe/runs/{run_id}/spans/:
+    post:
+      tags:
+        - Telemetry
+      summary: Record Span
+      description: Capture an OpenTelemetry-compatible span (tool call, retrieval, decision).
+      operationId: recordSpan
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Span'
+      responses:
+        '201':
+          description: Span recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+  /api/v1/observe/runs/{run_id}/scores/:
+    post:
+      tags:
+        - Telemetry
+      summary: Record Score
+      description: Submit a quality, safety, or evaluation score against a run.
+      operationId: recordScore
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Score'
+      responses:
+        '201':
+          description: Score recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Score'
+  /api/v1/observe/prompts/{name}/:
+    get:
+      tags:
+        - Prompts
+      summary: Get Managed Prompt
+      description: Retrieve a managed prompt by name, optionally pinned to a version or label.
+      operationId: getPrompt
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Name of the managed prompt
+        - in: query
+          name: label
+          required: false
+          schema:
+            type: string
+          description: Label (e.g. `production`, `staging`) to resolve to a specific version
+        - in: query
+          name: version
+          required: false
+          schema:
+            type: integer
+          description: Explicit version number
+      responses:
+        '200':
+          description: Prompt retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prompt'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/observe/policy-check/:
+    post:
+      tags:
+        - Governance
+      summary: Check Policy
+      description: |
+        Evaluate the configured governance policies for a proposed agent
+        action. The response indicates whether to allow, warn, redact,
+        throttle, block, skip, or retry the action.
+      operationId: checkPolicy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCheckRequest'
+      responses:
+        '200':
+          description: Decision returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDecision'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /api/v1/observe/events/:
+    post:
+      tags:
+        - Governance
+      summary: Record Event
+      description: Append a governance or audit event to the immutable audit trail.
+      operationId: recordEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Event recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+  /api/v1/observe/model-costs/:
+    get:
+      tags:
+        - Cost Management
+      summary: List Model Costs
+      description: Return the merged cost table (defaults plus tenant overrides) for known models.
+      operationId: listModelCosts
+      responses:
+        '200':
+          description: Cost table
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModelCost'
+  /api/v1/observe/model-costs/{model_id}/:
+    put:
+      tags:
+        - Cost Management
+      summary: Override Model Cost
+      description: Set a tenant-specific input/output token price for a given model id.
+      operationId: setModelCost
+      parameters:
+        - in: path
+          name: model_id
+          required: true
+          schema:
+            type: string
+          description: Provider-qualified model identifier (e.g. `openai/gpt-4o`).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelCost'
+      responses:
+        '200':
+          description: Override saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelCost'
+    delete:
+      tags:
+        - Cost Management
+      summary: Remove Model Cost Override
+      description: Remove a tenant-specific override and revert to the default cost.
+      operationId: deleteModelCost
+      parameters:
+        - in: path
+          name: model_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Override removed
+components:
+  securitySchemes:
+    WaxKey:
+      type: apiKey
+      in: header
+      name: X-Wax-Key
+      description: Waxell API key issued in the dashboard. Format `wax_sk_...`.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: wax_sk
+      description: Same `wax_sk_` key passed as a Bearer token.
+  parameters:
+    RunId:
+      in: path
+      name: run_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the run returned by `POST /runs/start/`.
+  responses:
+    BadRequest:
+      description: Request payload was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit or governance throttle triggered.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+      required:
+        - error
+        - message
+    RunStartRequest:
+      type: object
+      required:
+        - agent_name
+      properties:
+        agent_name:
+          type: string
+        session_id:
+          type: string
+        user_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    RunCompleteRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [completed, failed, cancelled]
+        output:
+          type: string
+        error:
+          type: string
+    Run:
+      type: object
+      properties:
+        run_id:
+          type: string
+          format: uuid
+        agent_name:
+          type: string
+        status:
+          type: string
+          enum: [pending, running, paused, completed, failed]
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        total_cost_usd:
+          type: number
+        total_tokens:
+          type: integer
+        session_id:
+          type: string
+        user_id:
+          type: string
+    LlmCall:
+      type: object
+      required:
+        - model
+      properties:
+        id:
+          type: string
+        model:
+          type: string
+        provider:
+          type: string
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+        latency_ms:
+          type: integer
+        cost_usd:
+          type: number
+        prompt:
+          type: string
+        completion:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Step:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        input:
+          type: object
+          additionalProperties: true
+        output:
+          type: object
+          additionalProperties: true
+        started_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+    Span:
+      type: object
+      properties:
+        span_id:
+          type: string
+        parent_span_id:
+          type: string
+        name:
+          type: string
+        kind:
+          type: string
+          enum: [tool, retrieval, decision, llm, custom]
+        attributes:
+          type: object
+          additionalProperties: true
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+    Score:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          oneOf:
+            - type: number
+            - type: string
+            - type: boolean
+        comment:
+          type: string
+        evaluator:
+          type: string
+    Prompt:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: integer
+        label:
+          type: string
+        template:
+          type: string
+        variables:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    PolicyCheckRequest:
+      type: object
+      required:
+        - agent_name
+        - action
+      properties:
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        action:
+          type: string
+          description: Proposed action (e.g. tool name, LLM model, network destination).
+        context:
+          type: object
+          additionalProperties: true
+    PolicyDecision:
+      type: object
+      properties:
+        decision:
+          type: string
+          enum: [allow, warn, redact, throttle, block, skip, retry]
+        policy_id:
+          type: string
+        category:
+          type: string
+          description: One of the 26 policy categories (e.g. `cost_management`, `data_access`).
+        reason:
+          type: string
+        retry_after_seconds:
+          type: integer
+        redacted_content:
+          type: string
+    Event:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        severity:
+          type: string
+          enum: [info, warning, error, critical]
+        attributes:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+    ModelCost:
+      type: object
+      required:
+        - model_id
+      properties:
+        model_id:
+          type: string
+        provider:
+          type: string
+        input_cost_per_million:
+          type: number
+        output_cost_per_million:
+          type: number
+        currency:
+          type: string
+          default: USD
+        is_override:
+          type: boolean
