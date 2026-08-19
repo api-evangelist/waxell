@@ -1,0 +1,401 @@
+{
+  "item": [
+    {
+      "id": "4f80ce47-2168-43b6-bcf9-eba0eeb78a1d",
+      "name": "Cost Management",
+      "description": {
+        "content": "Model cost catalog and tenant-level overrides",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "da515c5b-5535-41da-9c69-134f10b54721",
+          "name": "List Model Costs",
+          "request": {
+            "name": "List Model Costs",
+            "description": {
+              "content": "Return the merged cost table (defaults plus tenant overrides) for known models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "model-costs",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c930cc3-84f2-4303-ac1c-999f388b6565",
+              "name": "Cost table",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "model-costs",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"model_id\": \"string\",\n    \"provider\": \"string\",\n    \"input_cost_per_million\": 3759.536402898305,\n    \"output_cost_per_million\": 8002.059578446484,\n    \"currency\": \"USD\",\n    \"is_override\": true\n  },\n  {\n    \"model_id\": \"string\",\n    \"provider\": \"string\",\n    \"input_cost_per_million\": 655.3720532028661,\n    \"output_cost_per_million\": 5678.060302249588,\n    \"currency\": \"USD\",\n    \"is_override\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "120df613-7774-46ea-95d3-3ecaade5b9cd",
+          "name": "Override Model Cost",
+          "request": {
+            "name": "Override Model Cost",
+            "description": {
+              "content": "Set a tenant-specific input/output token price for a given model id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "model-costs",
+                ":model_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) Provider-qualified model identifier (e.g. `openai/gpt-4o`)."
+                },
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_cost_per_million\": \"<number>\",\n  \"output_cost_per_million\": \"<number>\",\n  \"currency\": \"USD\",\n  \"is_override\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbc6f6ca-137c-4b66-b8a8-39632c095de8",
+              "name": "Override saved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "model-costs",
+                    ":model_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) Provider-qualified model identifier (e.g. `openai/gpt-4o`)."
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_cost_per_million\": \"<number>\",\n  \"output_cost_per_million\": \"<number>\",\n  \"currency\": \"USD\",\n  \"is_override\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model_id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_cost_per_million\": \"<number>\",\n  \"output_cost_per_million\": \"<number>\",\n  \"currency\": \"USD\",\n  \"is_override\": \"<boolean>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c953c312-2efa-4447-a5d1-9d0a5a262b9c",
+          "name": "Remove Model Cost Override",
+          "request": {
+            "name": "Remove Model Cost Override",
+            "description": {
+              "content": "Remove a tenant-specific override and revert to the default cost.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "model-costs",
+                ":model_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbe18ec8-ad97-4a30-93b2-939688fdb3e5",
+              "name": "Override removed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "model-costs",
+                    ":model_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Tenant subdomain provisioned for your organization",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "acme",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.waxell.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Wax-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a92c1776-ac2f-4ac7-861c-989241772f80",
+    "name": "Waxell Observe Cost Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Waxell Observe REST API exposes the AI agent governance and\nobservability control plane. It is used by the `waxell-observe` Python\nSDK and Developer MCP server to record agent runs, log LLM calls and\nspans, evaluate runtime governance policies, manage prompts, and\nadminister model cost tables.\n\nEndpoints are served from a tenant-specific control plane host\n(e.g. `https://acme.waxell.dev`) at the path prefix\n`/api/v1/observe/`. Authentication uses the same `wax_sk_` keys\nissued in the dashboard, presented either as `X-Wax-Key` or as a\n`Bearer` token.\n\n\nContact Support:\n Name: Waxell",
+      "type": "text/plain"
+    }
+  }
+}

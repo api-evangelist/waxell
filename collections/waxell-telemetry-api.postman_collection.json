@@ -1,0 +1,614 @@
+{
+  "item": [
+    {
+      "id": "df535c2e-0ade-40b8-b3a1-33c95c606854",
+      "name": "Telemetry",
+      "description": {
+        "content": "LLM calls, spans, steps, and quality scores recorded against a run",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0beca135-e1e8-4dd8-9a3b-554c69152c89",
+          "name": "Record LLM Call",
+          "request": {
+            "name": "Record LLM Call",
+            "description": {
+              "content": "Log a single LLM API call (model, tokens, latency, cost) attached to a run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "runs",
+                ":run_id",
+                "llm-calls",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "run_id",
+                  "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                },
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"latency_ms\": \"<integer>\",\n  \"cost_usd\": \"<number>\",\n  \"prompt\": \"<string>\",\n  \"completion\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "336b389f-107e-45f2-b39e-0abdcd76b3dc",
+              "name": "LLM call recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "runs",
+                    ":run_id",
+                    "llm-calls",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"latency_ms\": \"<integer>\",\n  \"cost_usd\": \"<number>\",\n  \"prompt\": \"<string>\",\n  \"completion\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"<string>\",\n  \"id\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"latency_ms\": \"<integer>\",\n  \"cost_usd\": \"<number>\",\n  \"prompt\": \"<string>\",\n  \"completion\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fad54689-667a-4d05-af45-bfabe4f84c51",
+          "name": "Record Step",
+          "request": {
+            "name": "Record Step",
+            "description": {
+              "content": "Record a single execution step within an agent run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "runs",
+                ":run_id",
+                "steps",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "run_id",
+                  "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                },
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"input\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"output\": {\n    \"key_0\": true\n  },\n  \"started_at\": \"<dateTime>\",\n  \"ended_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc8057bc-1cb1-4001-9f3f-e21516d0f5f3",
+              "name": "Step recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "runs",
+                    ":run_id",
+                    "steps",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"input\": {\n    \"key_0\": 3460.178837192174,\n    \"key_1\": true,\n    \"key_2\": 2236,\n    \"key_3\": \"string\"\n  },\n  \"output\": {\n    \"key_0\": \"string\",\n    \"key_1\": 2207.0019485042158\n  },\n  \"started_at\": \"<dateTime>\",\n  \"ended_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"input\": {\n    \"key_0\": 3460.178837192174,\n    \"key_1\": true,\n    \"key_2\": 2236,\n    \"key_3\": \"string\"\n  },\n  \"output\": {\n    \"key_0\": \"string\",\n    \"key_1\": 2207.0019485042158\n  },\n  \"started_at\": \"<dateTime>\",\n  \"ended_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74802345-44f1-46d4-b678-9a38963fad38",
+          "name": "Record Span",
+          "request": {
+            "name": "Record Span",
+            "description": {
+              "content": "Capture an OpenTelemetry-compatible span (tool call, retrieval, decision).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "runs",
+                ":run_id",
+                "spans",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "run_id",
+                  "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                },
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"span_id\": \"<string>\",\n  \"parent_span_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": \"string\"\n  },\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "33786c0a-25eb-44fa-b48d-35e34025feeb",
+              "name": "Span recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "runs",
+                    ":run_id",
+                    "spans",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"span_id\": \"<string>\",\n  \"parent_span_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": true,\n    \"key_1\": 7584,\n    \"key_2\": \"string\"\n  },\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"span_id\": \"<string>\",\n  \"parent_span_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": true,\n    \"key_1\": 7584,\n    \"key_2\": \"string\"\n  },\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a337fc8-744e-40a5-bd2b-d09e6cb12570",
+          "name": "Record Score",
+          "request": {
+            "name": "Record Score",
+            "description": {
+              "content": "Submit a quality, safety, or evaluation score against a run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "runs",
+                ":run_id",
+                "scores",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "run_id",
+                  "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                },
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<number>\",\n  \"comment\": \"<string>\",\n  \"evaluator\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89ce232e-1036-4a2d-8af4-75c89a82ca77",
+              "name": "Score recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "runs",
+                    ":run_id",
+                    "scores",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Identifier of the run returned by `POST /runs/start/`."
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<number>\",\n  \"comment\": \"<string>\",\n  \"evaluator\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"value\": \"<number>\",\n  \"comment\": \"<string>\",\n  \"evaluator\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Tenant subdomain provisioned for your organization",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "acme",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.waxell.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Wax-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2ce8f888-4344-41a4-bfda-bacb4bc6da49",
+    "name": "Waxell Observe Cost Management Telemetry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Waxell Observe REST API exposes the AI agent governance and\nobservability control plane. It is used by the `waxell-observe` Python\nSDK and Developer MCP server to record agent runs, log LLM calls and\nspans, evaluate runtime governance policies, manage prompts, and\nadminister model cost tables.\n\nEndpoints are served from a tenant-specific control plane host\n(e.g. `https://acme.waxell.dev`) at the path prefix\n`/api/v1/observe/`. Authentication uses the same `wax_sk_` keys\nissued in the dashboard, presented either as `X-Wax-Key` or as a\n`Bearer` token.\n\n\nContact Support:\n Name: Waxell",
+      "type": "text/plain"
+    }
+  }
+}

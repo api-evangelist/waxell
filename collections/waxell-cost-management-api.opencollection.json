@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Waxell Observe Cost Management API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Wax-Key",
+      "value": "{{X-Wax-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cost Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Model Costs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/model-costs/"
+          },
+          "docs": "Return the merged cost table (defaults plus tenant overrides) for known models."
+        },
+        {
+          "info": {
+            "name": "Override Model Cost",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/model-costs/:model_id/",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path",
+                "description": "Provider-qualified model identifier (e.g. `openai/gpt-4o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set a tenant-specific input/output token price for a given model id."
+        },
+        {
+          "info": {
+            "name": "Remove Model Cost Override",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/model-costs/:model_id/",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a tenant-specific override and revert to the default cost."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Waxell Observe Cost Management Telemetry API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Wax-Key",
+      "value": "{{X-Wax-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Telemetry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Record LLM Call",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/llm-calls/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Log a single LLM API call (model, tokens, latency, cost) attached to a run."
+        },
+        {
+          "info": {
+            "name": "Record Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/steps/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Record a single execution step within an agent run."
+        },
+        {
+          "info": {
+            "name": "Record Span",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/spans/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Capture an OpenTelemetry-compatible span (tool call, retrieval, decision)."
+        },
+        {
+          "info": {
+            "name": "Record Score",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/scores/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a quality, safety, or evaluation score against a run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

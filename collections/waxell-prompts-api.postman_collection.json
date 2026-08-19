@@ -1,0 +1,267 @@
+{
+  "item": [
+    {
+      "id": "dcedb465-4386-4eee-9c18-4da6bdca414e",
+      "name": "Prompts",
+      "description": {
+        "content": "Managed prompts retrievable by name and version",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fea2b8b7-7ce3-4ab7-ae32-ae69658e16c8",
+          "name": "Get Managed Prompt",
+          "request": {
+            "name": "Get Managed Prompt",
+            "description": {
+              "content": "Retrieve a managed prompt by name, optionally pinned to a version or label.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "prompts",
+                ":name",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "label",
+                  "value": "<string>",
+                  "description": "Label (e.g. `production`, `staging`) to resolve to a specific version"
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<integer>",
+                  "description": "Explicit version number"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the managed prompt"
+                },
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bcd13bee-fa51-4f91-b846-9ed697568441",
+              "name": "Prompt retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "prompts",
+                    ":name",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the managed prompt"
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"version\": 2575,\n  \"label\": \"string\",\n  \"template\": \"string\",\n  \"variables\": [\n    \"string\",\n    \"string\"\n  ],\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a9b2a50-e368-42e5-ae45-4a1f18db1ef7",
+              "name": "Resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "prompts",
+                    ":name",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the managed prompt"
+                    },
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Tenant subdomain provisioned for your organization",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "acme",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.waxell.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Wax-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2ea29a5-e468-473d-9a81-b24f7050c300",
+    "name": "Waxell Observe Cost Management Prompts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Waxell Observe REST API exposes the AI agent governance and\nobservability control plane. It is used by the `waxell-observe` Python\nSDK and Developer MCP server to record agent runs, log LLM calls and\nspans, evaluate runtime governance policies, manage prompts, and\nadminister model cost tables.\n\nEndpoints are served from a tenant-specific control plane host\n(e.g. `https://acme.waxell.dev`) at the path prefix\n`/api/v1/observe/`. Authentication uses the same `wax_sk_` keys\nissued in the dashboard, presented either as `X-Wax-Key` or as a\n`Bearer` token.\n\n\nContact Support:\n Name: Waxell",
+      "type": "text/plain"
+    }
+  }
+}

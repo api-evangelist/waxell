@@ -1,0 +1,362 @@
+{
+  "item": [
+    {
+      "id": "e4421731-0301-45a7-b8f1-53b26d6ae1fe",
+      "name": "Governance",
+      "description": {
+        "content": "Pre-execution policy checks and audit events",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf9126d6-8fbb-47b9-a23c-627a06483d5a",
+          "name": "Check Policy",
+          "request": {
+            "name": "Check Policy",
+            "description": {
+              "content": "Evaluate the configured governance policies for a proposed agent\naction. The response indicates whether to allow, warn, redact,\nthrottle, block, skip, or retry the action.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "policy-check",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent_name\": \"<string>\",\n  \"action\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"context\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0465a4bf-71ea-49d3-9aad-5d8086075852",
+              "name": "Decision returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "policy-check",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_name\": \"<string>\",\n  \"action\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"context\": {\n    \"key_0\": 5691.5018037410655,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"decision\": \"retry\",\n  \"policy_id\": \"string\",\n  \"category\": \"string\",\n  \"reason\": \"string\",\n  \"retry_after_seconds\": 5663,\n  \"redacted_content\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6901e4f7-f08b-4139-9c31-fa513f0b795b",
+              "name": "Rate limit or governance throttle triggered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "policy-check",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_name\": \"<string>\",\n  \"action\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"context\": {\n    \"key_0\": 5691.5018037410655,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d707f894-b09e-48c6-8750-965bdb181ad0",
+          "name": "Record Event",
+          "request": {
+            "name": "Record Event",
+            "description": {
+              "content": "Append a governance or audit event to the immutable audit trail.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "observe",
+                "events",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Tenant subdomain provisioned for your organization",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"agent_name\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": 8101\n  },\n  \"created_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9765a7a-365e-4092-9981-bb79b804218a",
+              "name": "Event recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "observe",
+                    "events",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Tenant subdomain provisioned for your organization",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Wax-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"agent_name\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"created_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"<string>\",\n  \"agent_name\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"created_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Tenant subdomain provisioned for your organization",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "acme",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.waxell.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Wax-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "63cadb7b-4527-45d2-9623-a104709b24cb",
+    "name": "Waxell Observe Cost Management Governance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Waxell Observe REST API exposes the AI agent governance and\nobservability control plane. It is used by the `waxell-observe` Python\nSDK and Developer MCP server to record agent runs, log LLM calls and\nspans, evaluate runtime governance policies, manage prompts, and\nadminister model cost tables.\n\nEndpoints are served from a tenant-specific control plane host\n(e.g. `https://acme.waxell.dev`) at the path prefix\n`/api/v1/observe/`. Authentication uses the same `wax_sk_` keys\nissued in the dashboard, presented either as `X-Wax-Key` or as a\n`Bearer` token.\n\n\nContact Support:\n Name: Waxell",
+      "type": "text/plain"
+    }
+  }
+}

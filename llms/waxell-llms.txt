@@ -1,0 +1,364 @@
+# Waxell
+
+> Waxell is a platform for building governed AI agents with built-in observability, policy enforcement, and production-grade infrastructure. This file provides an index of all documentation for LLM consumption.
+
+> Last generated: 2026-08-10
+
+## Links
+
+- [Website](https://waxell.ai)
+- [Documentation](https://waxell.ai/docs/)
+- [Dashboard](https://waxell.dev)
+- [Status](https://status.waxell.dev)
+- [Community Forum](https://community.waxell.dev)
+- [Security](https://waxell.ai/docs/security)
+- [Full Documentation for LLMs](https://waxell.ai/docs/llms-full.txt)
+
+## Waxell Observe
+
+> LLM observability, cost tracking, and governance for AI applications
+
+### Get Started
+
+- [Waxell Observe](https://waxell.ai/docs/observe/overview): Lightweight observability and governance for any Python AI agent framework. Track LLM calls, manage costs, and enforce policies without rewriting your agents.
+- [Quickstart: Observe Your Agents](https://waxell.ai/docs/observe/quickstart): Add full observability to your AI agents -- auto-instrumentation in 2 lines, decorators for structure, WaxellContext for full control.
+- [Installation & Configuration](https://waxell.ai/docs/observe/installation): Install waxell-observe and configure API credentials via environment variables, CLI config file, or programmatic setup.
+
+### Instrumentation
+
+- [Auto-Instrumentation](https://waxell.ai/docs/observe/integrations/auto-instrumentation): Zero-code observability for 200+ AI/ML libraries including LLM providers, vector databases, agent frameworks, and more
+- [Decorator Pattern](https://waxell.ai/docs/observe/integrations/decorator): Add observability and governance to any Python function with the @observe decorator.
+- [Behavior Tracking](https://waxell.ai/docs/observe/features/behavior-tracking): Track tool calls, retrievals, decisions, reasoning, retries, and steps with decorators, convenience functions, or manual context methods.
+- [Advanced: Context Manager](https://waxell.ai/docs/observe/integrations/context-manager): Use WaxellContext for fine-grained control over observability and governance in complex agent workflows.
+- [Streaming](https://waxell.ai/docs/observe/integrations/streaming): Capture streaming LLM responses with proper token counting
+- [Multi-Agent](https://waxell.ai/docs/observe/integrations/multi-agent): Trace correlated multi-agent systems with shared sessions
+
+### Provider Integrations
+
+- [OpenAI](https://waxell.ai/docs/observe/integrations/openai): Instrument OpenAI API calls with automatic or manual tracing
+- [Anthropic](https://waxell.ai/docs/observe/integrations/anthropic): Instrument Anthropic Claude API calls with Waxell Observe
+- [LiteLLM](https://waxell.ai/docs/observe/integrations/litellm): Multi-provider observability with LiteLLM's unified API
+- [Claude Code & Cowork](https://waxell.ai/docs/observe/integrations/claude-code): Add observability, governance, and security guardrails to Claude Code and Claude Cowork sessions
+
+### Features
+
+- [LLM Call Tracking](https://waxell.ai/docs/observe/features/llm-tracking): Track every LLM API call with model, token counts, cost, and prompt/response previews.
+- [Provider Routing — Use Waxell Routing Without the Runtime](https://waxell.ai/docs/observe/features/provider-routing): Dispatch LLM calls through Waxell with cross-provider fallback, capability filtering, and per-instance secret resolution — without adopting the Waxell runtime.
+- [Sessions](https://waxell.ai/docs/observe/features/sessions): Group related agent runs into sessions for multi-turn conversation tracking and aggregate analysis.
+- [User Tracking](https://waxell.ai/docs/observe/features/user-tracking): Track per-user costs, usage patterns, and agent interactions with opaque user identifiers.
+- [Cost Management](https://waxell.ai/docs/observe/features/cost-management): Track, estimate, and control LLM costs with client-side estimation, server-side calculation, and tenant-level overrides.
+- [Scoring](https://waxell.ai/docs/observe/features/scoring): Attach quality scores to agent runs using numeric, categorical, or boolean values from SDK or UI.
+- [Prompt Management](https://waxell.ai/docs/observe/features/prompt-management): Version, label, and retrieve prompts with content hashing for production traceability and a playground for testing.
+- [Conversation Tracking](https://waxell.ai/docs/observe/features/conversation-tracking)
+- [Evaluators (LLM-as-Judge)](https://waxell.ai/docs/observe/features/evaluators): Automate quality assessment of agent runs using configurable LLM-based evaluators and human annotation queues.
+- [Datasets & Experiments](https://waxell.ai/docs/observe/features/datasets-experiments): Build test datasets from production data, run systematic experiments across configurations, and compare results side by side.
+
+### Governance
+
+- [Policy & Governance](https://waxell.ai/docs/observe/features/governance): Enforce execution policies with pre-run checks, budget controls, and mid-execution validation.
+- [Eval-Driven Governance](https://waxell.ai/docs/observe/features/eval-driven-governance): Turn evaluation scores into production guardrails. One evaluator measures quality offline AND enforces policy live — block hallucinations, catch PII leaks, gate prompt regressions, and produce continuous compliance evidence.
+- [Approval Workflows](https://waxell.ai/docs/observe/features/approval-workflows): Handle policy blocks with human-in-the-loop approval — terminal prompts, Slack, webhooks, or custom UI.
+- [Human-in-the-Loop](https://waxell.ai/docs/observe/features/human-in-the-loop): Capture interactive human input — terminal prompts, Slack messages, UI dialogs — as observable spans in your agent traces.
+- [Policy Categories & Templates](https://waxell.ai/docs/observe/features/policy-categories): All 49 policy categories and pre-built templates for governing AI agents -- operational guardrails, data and security boundaries, cognitive controls, OWASP LLM Top 10, regulatory compliance, end-user identity, and more.
+
+### Governance / Operational Guardrails
+
+- [Rate Limit Policy](https://waxell.ai/docs/observe/governance/rate-limit): Enforce execution frequency limits on agent workflows -- per-minute, per-hour, per-day, concurrent, and burst rate limiting with distributed Redis counters.
+- [Budget Policy](https://waxell.ai/docs/observe/governance/budget): Token and cost budgets for workflows -- daily and per-workflow limits, warning thresholds, per-model caps, and block/warn/throttle actions when exceeded.
+- [Chargeback Attribution Policy](https://waxell.ai/docs/observe/governance/chargeback-attribution): Require cost-center / business-unit tags on every agent run so finance can attribute LLM spend by department. Optional auto-tagging with a fallback bucket.
+- [Scheduling Policy](https://waxell.ai/docs/observe/governance/scheduling): Control when workflows can run -- allowed hours, allowed days, blackout dates, and recurring maintenance windows, all timezone-aware.
+- [Time-of-Day Gating Policy](https://waxell.ai/docs/observe/governance/time-of-day-gating): Window-of-allowed-use enforcement with multiple per-day windows, overnight windows, IANA timezones, and workflow-type exemptions. Maps to SOX 404, ISO 27001, HIPAA access controls.
+- [Safety Policy](https://waxell.ai/docs/observe/governance/safety): Content and behavior safety controls for workflow execution -- PII detection, credential scanning, profanity filtering, step/tool limits, blocked tools, and human approval requirements.
+- [Kill Switch (Circuit Breaker) Policy](https://waxell.ai/docs/observe/governance/kill-switch): Emergency stop controls with automatic circuit breaker functionality -- track error rates, auto-disable failing agents, and recover automatically with Redis-backed state.
+- [Audit Policy](https://waxell.ai/docs/observe/governance/audit): Configurable audit logging for workflow execution -- input/output/step/tool-call logging with field redaction and retention controls.
+- [Operations Policy](https://waxell.ai/docs/observe/governance/operations): Enforce operational controls on workflow execution -- timeout monitoring with post-hoc warnings for SLA compliance and performance tracking.
+- [LLM Policy](https://waxell.ai/docs/observe/governance/llm): Govern which LLM models agents can use, enforce token budgets, and validate model compliance with allowlists and blocklists -- including versioned model name matching.
+- [Quality Policy](https://waxell.ai/docs/observe/governance/quality): Validate agent output quality with template-based checks (contains, regex, length), LLM judge scoring, JSON schema validation, and retry feedback -- post-execution quality gates.
+- [Content Policy](https://waxell.ai/docs/observe/governance/content): Input/output content scanning for PII, credentials, prompt injection, custom patterns, and blocked phrases -- with configurable warn, redact, and block actions.
+- [Spawn Limit Policy](https://waxell.ai/docs/observe/governance/spawn-limit): Tenant-wide concurrent ctx.spawn ceiling enforced at the dispatcher -- gates new child spawns before any dispatch happens. Runtime-plane only.
+
+### Governance / Data & Security Boundaries
+
+- [Data Access Policy](https://waxell.ai/docs/observe/governance/data-access): Control which data sources agents can read from or write to — allowlists, blocklists, read-only enforcement, and per-query record volume limits.
+- [Network Policy](https://waxell.ai/docs/observe/governance/network): Control outbound HTTP requests from agents — domain allowlists and blocklists, wildcard patterns, protocol restrictions, and internal-only mode.
+- [Scope Policy](https://waxell.ai/docs/observe/governance/scope): Blast-radius governance — limits the maximum impact of a single agent execution by capping records modified/deleted, files changed, transaction amounts, and API write counts.
+- [Code Execution Policy](https://waxell.ai/docs/observe/governance/code-execution): Govern what code your AI agents can execute -- languages, commands, paths, packages, sandboxing, and human review.
+- [Input Validation Policy](https://waxell.ai/docs/observe/governance/input-validation): Pre-flight data validation that checks inputs for emptiness, size, type, HTML injection, and schema compliance before agent execution begins.
+- [Output Egress Format Policy](https://waxell.ai/docs/observe/governance/output-egress-format): OWASP LLM05 exfiltration prevention — scans agent outputs for base64 blobs, external URLs, data URIs, and Unicode obfuscation that signal data smuggling.
+
+### Governance / Cognitive Governance
+
+- [Grounding Policy](https://waxell.ai/docs/observe/governance/grounding): Hallucination and factual accuracy governance — enforces minimum grounding scores, citation requirements, unsupported claim limits, and output confidence thresholds for RAG and research agents.
+- [Provenance Required Policy](https://waxell.ai/docs/observe/governance/provenance-required): OWASP LLM09b — strict per-claim citation enforcement. Every factual claim in agent output must carry a citation to a source on the tenant's approved list.
+- [Retrieval Policy](https://waxell.ai/docs/observe/governance/retrieval): RAG pipeline quality governance — relevance scoring, source freshness, collection allowlists, and source diversity enforcement for vector search and retrieval-augmented generation.
+- [Reasoning Policy](https://waxell.ai/docs/observe/governance/reasoning): Decision explainability and bias detection governance — enforce explanation requirements, alternative consideration, confidence thresholds, and bias detection for agent decision-making.
+- [Recursion Bound Policy](https://waxell.ai/docs/observe/governance/recursion-bound): OWASP LLM10c — cap reasoning depth, tool-call count, delegation depth, and user-turn count to prevent runaway agent loops.
+- [Prompt Injection Guard Policy](https://waxell.ai/docs/observe/governance/prompt-injection-guard): OWASP LLM01 — scan agent inputs and indirect retrieval/tool outputs for prompt-injection signals using heuristic patterns and an optional ML classifier.
+
+### Governance / Agent Action Control
+
+- [Approval Policy](https://waxell.ai/docs/observe/governance/approval): Human-in-the-loop gates -- require human approval before workflow execution, before specific tools or actions run, or when cost exceeds a threshold. Includes session-start pre-approval and auto-approve by risk level.
+- [Delegation Policy](https://waxell.ai/docs/observe/governance/delegation): Multi-agent trust governance -- controls delegation depth, authorized delegates, concurrent sub-agent limits, and policy inheritance across agent hierarchies.
+- [Cross-Agent Isolation Policy](https://waxell.ai/docs/observe/governance/cross-agent-isolation): Prevent one agent from reading another agent's memory, scratchpad, tool state, or context. Agent-level analogue of multi-tenancy.
+- [Communication Policy](https://waxell.ai/docs/observe/governance/communication): Govern agent output channels -- allowed/blocked channels, message limits, disclaimer requirements, and channel-level access control.
+- [Domain Governance Policy](https://waxell.ai/docs/observe/governance/domain-governance): Per-call guards for Connect domain endpoints -- allowed/blocked domains and actions, payload-size limits, per-run call caps, approval gates, and audit logging. (E5 shadow-mode.)
+- [Signal Governance Policy](https://waxell.ai/docs/observe/governance/signal-governance): Control which signals can be dispatched, from what sources, with rate-limits and payload validation. Evaluates at signal ingestion -- BEFORE any agent execution begins.
+
+### Governance / Allowlists
+
+- [Tool Allowlist Policy](https://waxell.ai/docs/observe/governance/tool-allowlist): Positive-list governance for tools -- only listed tools may be invoked. Differs from safety.blocked_tools (deny-only) by adding a hard allowlist.
+- [MCP Server Allowlist Policy](https://waxell.ai/docs/observe/governance/mcp-server-allowlist): Constrain which MCP servers an agent may register / connect to. Positive allowlist + always-deny list for the MCP ecosystem.
+- [Prompt Allowlist Policy](https://waxell.ai/docs/observe/governance/prompt-allowlist): Constrain named system-prompt templates. Cross-references the prompt-management system; enterprise compliance lever for vetted prompts.
+- [Tool Argument Schema Policy](https://waxell.ai/docs/observe/governance/tool-argument-schema): OWASP LLM06a — validate tool-call arguments against JSON schemas before invocation. Companion to tool-allowlist (which gates tool names).
+- [Agent Service Account Scope Policy](https://waxell.ai/docs/observe/governance/agent-service-account-scope): OWASP LLM06b enforcement — agents acting on SaaS surfaces (Confluence, Jira, Salesforce) must use a least-privilege service account instead of the raw user session.
+
+### Governance / Trust, Privacy & Compliance
+
+- [Privacy Policy](https://waxell.ai/docs/observe/governance/privacy): Data privacy governance -- consent requirements, data residency enforcement, purpose limitations, and data minimization for GDPR, HIPAA, and custom privacy frameworks.
+- [Identity Policy](https://waxell.ai/docs/observe/governance/identity): Agent identity governance -- enforce AI disclosure requirements and prevent impersonation of humans or professional roles in agent outputs.
+- [Memory Policy](https://waxell.ai/docs/observe/governance/memory): Session memory governance -- enforce session isolation, cap memory item counts, restrict forbidden memory types, and signal purge-on-completion for agent context stores.
+- [Compliance Policy](https://waxell.ai/docs/observe/governance/compliance): Meta-validator that checks required sibling policies are active and properly configured -- regulatory profile validation for HIPAA, SOC 2, PCI-DSS, GDPR, and custom compliance frameworks.
+- [Context Management Policy](https://waxell.ai/docs/observe/governance/context-management)
+- [Data Residency Policy](https://waxell.ai/docs/observe/governance/data-residency): Pin agent execution to approved regions for data-sovereignty compliance. Aligned to ISO 42001 A.8.4, GDPR, and EU AI Act.
+- [Data Erasure Policy](https://waxell.ai/docs/observe/governance/data-erasure): Enforce GDPR Art-17 "Right to Erasure" and CCPA right-to-delete SLAs. Block processing and writes for subjects with pending erasure requests.
+- [Breach Notification Policy](https://waxell.ai/docs/observe/governance/breach-notification): Enforce regulatory breach-notification SLAs -- 72h GDPR Art-33, 60d HIPAA §164.404. Blocks agent activity until notifications are dispatched.
+- [Bias Trend Policy](https://waxell.ai/docs/observe/governance/bias-trend): Continuous fairness monitoring -- track the rate of bias flags over a rolling window and fire when it exceeds threshold. Aligned to NIST AI RMF MS-3.1 and EU AI Act Art-10.
+- [Model Card Required Policy](https://waxell.ai/docs/observe/governance/model-card-required): OWASP LLM03 / NIST AI RMF GV-1.1 — every model used by an agent must have a declared model card with a risk classification. Models without a card or above the policy ceiling are blocked.
+
+### Governance / End-User Identity
+
+- [End-User Budget Policy](https://waxell.ai/docs/observe/governance/end-user-budget): Per-WaxellUser monthly spend caps -- enforce $/month limits on individual end-users behind a tenant.
+- [End-User Rate Limit Policy](https://waxell.ai/docs/observe/governance/end-user-rate-limit): Per-end-user and per-group request-rate caps -- protect against runaway sub-users and noisy customers.
+- [End-User Suspension Policy](https://waxell.ai/docs/observe/governance/end-user-suspension): Block runs for suspended end-users -- per-seat kill switch that takes effect at the next turn boundary.
+
+### Governance
+
+- [Policy Recommendations](https://waxell.ai/docs/observe/features/recommendations): Automated policy suggestions based on your agent's actual runtime behavior -- token budgets, cost limits, timeouts, and safety bounds.
+- [Platform Assistant](https://waxell.ai/docs/observe/features/platform-assistant): The AI operations advisor built into Waxell — query your data, create policies, get proactive insights, and learn the platform through natural language.
+
+### Troubleshooting
+
+- [FAQ](https://waxell.ai/docs/observe/troubleshooting/faq): Frequently asked questions about the Waxell Observe SDK -- setup, instrumentation, governance, and more.
+- [Common Errors](https://waxell.ai/docs/observe/troubleshooting/common-errors): Error reference for the Waxell Observe SDK -- what each error means and how to fix it.
+- [Common Mistakes](https://waxell.ai/docs/observe/troubleshooting/common-mistakes): Anti-patterns and gotchas when using the Waxell Observe SDK -- and how to fix them.
+
+### API Reference
+
+- [REST API Reference](https://waxell.ai/docs/observe/api/endpoints): Complete REST API reference for the Waxell Observe endpoints, including runs, policy checks, events, model costs, LLM calls, sessions, users, scoring, and prompts.
+- [Python SDK Reference](https://waxell.ai/docs/observe/api/python-sdk): Complete API reference for all public classes, functions, and types in the waxell-observe Python package.
+
+## MCP Governance
+
+> Govern Model Context Protocol servers — policy enforcement, PII scanning, and rug-pull detection
+
+### Auto-Instrumentor
+
+- [MCP Governance: Secure and Monitor AI Agent Tool Calls](https://waxell.ai/docs/observe/mcp-governance/overview): What is MCP governance, why SDK-level beats gateway approaches, and how Waxell's three products work together.
+- [MCP Governance Quickstart](https://waxell.ai/docs/observe/mcp-governance/quickstart): Add MCP governance to your agent in one line -- see tool calls, policy checks, and PII scans in traces within 5 minutes.
+- [MCP Policy Configuration](https://waxell.ai/docs/observe/mcp-governance/policy-configuration): Configure allowlist and blocklist rules for MCP tool calls using the mcp:{server}:{tool} naming convention.
+- [MCP Approval Workflows](https://waxell.ai/docs/observe/mcp-governance/approval-workflows): Set up human-in-the-loop approval for blocked MCP tool calls -- prompt_approval, auto_approve, custom handlers.
+- [PII and Secret Scanning for MCP Tools](https://waxell.ai/docs/observe/mcp-governance/pii-scanning): Configure automatic PII and secret detection for MCP tool inputs and outputs -- block, warn, or redact sensitive data before it leaves your agent.
+- [Rug Pull Detection for MCP Tools](https://waxell.ai/docs/observe/mcp-governance/rug-pull-detection): Detect when MCP servers change tool descriptions -- SHA256 fingerprinting, change alerts, and blocking suspicious tool modifications.
+- [MCP Span Attributes Reference](https://waxell.ai/docs/observe/mcp-governance/reference): Complete reference for all waxell.mcp.* span attributes and OTel semantic conventions used by the MCP auto-instrumentor.
+
+### Server Middleware
+
+- [Add Governance to Your FastMCP Server](https://waxell.ai/docs/observe/mcp-governance/middleware-quickstart): Add policy checks, PII scanning, rate limiting, and observability to your FastMCP server with GovernanceMiddleware -- zero to governed server in 10 minutes.
+- [Configure Governance Per Tool](https://waxell.ai/docs/observe/mcp-governance/middleware-per-tool): Configure governance differently for each tool in your FastMCP server using @governance decorators, constructor tool_configs, or server defaults.
+- [Connect Your Middleware to the Waxell Controlplane](https://waxell.ai/docs/observe/mcp-governance/middleware-controlplane): Connect GovernanceMiddleware to the Waxell controlplane for centralized policy management, remote policy checks, and fail-open resilience.
+- [Middleware API Reference](https://waxell.ai/docs/observe/mcp-governance/middleware-reference): Complete reference for GovernanceMiddleware, ToolGovernanceConfig, MiddlewareConfig, the @governance decorator, and server-side span attributes.
+
+### Governance Proxy
+
+- [Governance Proxy Quickstart](https://waxell.ai/docs/observe/mcp-governance/proxy-quickstart): Wrap any third-party MCP server with governance in one command -- policy checks, PII scanning, and observability with zero code changes.
+- [Proxy Deployment Guide](https://waxell.ai/docs/observe/mcp-governance/proxy-deployment): Deploy the Waxell governance proxy with CLI, Docker, or docker-compose -- complete CLI reference, config file formats, and production considerations.
+- [Governing Third-Party MCP Providers](https://waxell.ai/docs/observe/mcp-governance/proxy-third-party): Use the Waxell governance proxy to add policy checks, PII scanning, and rug pull detection to third-party MCP providers like Composio, filesystem servers, and custom scripts.
+
+### Architecture & Reference
+
+- [MCP Governance Architecture](https://waxell.ai/docs/observe/mcp-governance/architecture): Decision flowchart, deployment diagrams, and composability patterns for Waxell's three MCP governance products -- auto-instrumentor, server middleware, and governance proxy.
+- [MCP Governance API Reference](https://waxell.ai/docs/observe/mcp-governance/api-reference): Cross-product API reference for all MCP governance classes, functions, decorators, and configuration options across the auto-instrumentor, server middleware, and governance proxy.
+
+## MCP Gateway
+
+> One governed front door for every MCP server your agents call
+
+### MCP Gateway
+
+- [Waxell MCP Gateway: One Governed MCP Surface for Your Whole Company](https://waxell.ai/docs/mcp-gateway/overview): A single MCP endpoint your agents and AI tools connect to, brokering to 160+ upstream servers with policy, approvals, audit, and per-user identity on every call.
+- [Gateway Quickstart: Connect Claude in Two Minutes](https://waxell.ai/docs/mcp-gateway/quickstart): Connect Claude.ai, Claude Desktop, or Claude Code to the Waxell MCP Gateway and make your first governed tool call.
+- [Connector Catalog: 160+ Upstreams, Most with Zero Setup](https://waxell.ai/docs/mcp-gateway/catalog): Install MCP upstreams from the Waxell catalog, understand the Auto OAuth and Open badges, and connect user accounts.
+- [Upstream Authentication: From Fully Automatic to Bring-Your-Own](https://waxell.ai/docs/mcp-gateway/authentication): How the gateway authenticates to upstream MCP servers — MCP-spec OAuth with dynamic client registration, classic OAuth, open servers, API keys, and service accounts.
+
+### Governance
+
+- [Policy Engine: Deny, Redact, Approve, Rate-Limit — Before the Call Happens](https://waxell.ai/docs/mcp-gateway/policies): The gateway's preventive policy engine — rule matching, actions, precedence, approval workflows, and notifications.
+- [Tool Management: Hundreds of Tools Without Drowning the Model](https://waxell.ai/docs/mcp-gateway/tool-management): Tool subsetting with scope tags, the find_tools and call_external_tool meta-tools, and per-user pinned tools.
+- [Security: Fingerprinting, Drift Defense, DLP, and the Audit Log](https://waxell.ai/docs/mcp-gateway/security): How the gateway defends against rug pulls and prompt injection in tool descriptions, scans for data leakage, and records everything durably.
+
+### Operations
+
+- [Self-Hosting the Gateway In Your VPC](https://waxell.ai/docs/mcp-gateway/self-hosting): Run the MCP Gateway as a single-tenant deployment inside your own network while keeping the Waxell controlplane for policy and audit.
+- [Gateway Troubleshooting: Errors and What They Mean](https://waxell.ai/docs/mcp-gateway/troubleshooting): The errors you'll actually see from the MCP Gateway — what each means and how to fix it.
+
+## Waxell Framework
+
+> Build governed agents — SDK primitives, tutorials, and workflows
+
+### Getting Started
+
+- [Introduction](https://waxell.ai/docs/intro): The control plane for agentic systems. Add observability to existing agents or build governed agents from scratch.
+- [Installation](https://waxell.ai/docs/installation): Install and configure Waxell for your Python project.
+
+### SDK
+
+- [SDK Overview](https://waxell.ai/docs/sdk/overview): Understanding the Waxell SDK - intent-only definitions for AI agents.
+- [@agent Decorator](https://waxell.ai/docs/sdk/agent-spec): Define agent containers with the @agent decorator.
+- [@workflow Decorator](https://waxell.ai/docs/sdk/workflow-spec): Define multi-step execution flows with the @workflow decorator — how steps become durable checkpoints and what ctx actually exposes.
+- [@tool Decorator](https://waxell.ai/docs/sdk/tool-spec): Integrate external systems with the @tool decorator.
+- [LLM Calls](https://waxell.ai/docs/sdk/decision-spec): How an agent calls a model in Waxell — ctx.llm.generate, routing hints, structured output, and tool-calling loops.
+
+### Tutorials
+
+- [Build Your First Agent](https://waxell.ai/docs/tutorials/first-agent): Step-by-step tutorial to build your first Waxell agent.
+- [Multi-Step Workflows](https://waxell.ai/docs/tutorials/workflows): Build multi-step workflows with branching, composition, and error handling — on the real runtime API.
+- [Adding Governance](https://waxell.ai/docs/tutorials/governance): Control and audit agent behaviour — per-agent limits, approvals, policy evaluation points, and the audit trail.
+- [Deploying to Production](https://waxell.ai/docs/tutorials/production): Deploy Waxell agents to production environments.
+
+## Waxell Runtime
+
+> Run governed agents in production — execution tiers, isolation, working memory, and durable workflows
+
+### Waxell Runtime
+
+- [Quickstart](https://waxell.ai/docs/runtime/quickstart): Build, register, and run your first Waxell agent in under five minutes.
+- [Runtime Overview](https://waxell.ai/docs/runtime/overview): Understanding the Waxell Runtime - the execution engine for AI agents.
+- [How the Runtime Works](https://waxell.ai/docs/runtime/how-it-works): What actually happens between a signal arriving and a run finishing — routing, governance, execution, telemetry, and cost attribution.
+- [waxell.yaml Reference](https://waxell.ai/docs/runtime/waxell-yaml-reference): Complete field reference for the waxell.yaml agent specification file.
+- [Ship a Claude Agent to Your Team](https://waxell.ai/docs/runtime/ship-claude-agent): Take a claude_agent_sdk / Claude Code agent you built locally and publish it to Waxell so your whole team can use it in prod — governed, observable, and per-user.
+- [Build & Push a Custom Tool](https://waxell.ai/docs/runtime/custom-tools): Write a custom tool, declare it in waxell.yaml, and wire it into an agent so the whole team's agents can call it.
+- [Register a Domain](https://waxell.ai/docs/runtime/domains): Register a domain so your agents can call back into your own app — ctx.domain("company", "get", ...) routed to your HTTPS endpoints, with per-end-user identity and governance.
+- [Execution Context](https://waxell.ai/docs/runtime/execution-context): What ctx gives your agent at runtime — calling your application, the LLM, tools, memory, secrets, and pausing for humans.
+- [Execution Tiers](https://waxell.ai/docs/runtime/execution-tiers): Choose where your agents run — shared workers, dedicated warm slots, or a self-contained container built from your own dependencies. Same governance, same telemetry, same audit trail at every tier.
+- [Working Memory](https://waxell.ai/docs/runtime/working-memory): The Waxell runtime's memory tiers (working, session, episodic, semantic) — how domain results are captured to a scratchpad, referenced via $ref handles, and isolated per tenant.
+- [Durable Execution](https://waxell.ai/docs/runtime/workflow-envelope): How Waxell checkpoints a run so it can survive a crash and resume — what's a checkpoint, what a run's states mean, and which ones are terminal.
+- [Backends](https://waxell.ai/docs/runtime/backends): Configure runtime backends for different environments.
+
+## Managed Runtimes
+
+> Run Waxell-governed agents on third-party agent runtimes
+
+### Runtimes
+
+- [Runtimes — Deploy Waxell where your agents run](https://waxell.ai/docs/runtimes/overview): One-stop guide for shipping Waxell-governed agents to managed agent runtimes (Amazon Bedrock AgentCore, IBM watsonx.ai, Azure AI Foundry, Vertex AI Agent Engine, and more). Pick your runtime, ship in 5 minutes.
+- [Amazon Bedrock AgentCore Runtime (BYO code)](https://waxell.ai/docs/runtimes/bedrock-agentcore): Deploy a Waxell-instrumented Python agent to Amazon Bedrock AgentCore Runtime. The SDK ships inside the microVM and produces full client-side spans plus policy enforcement — same behavior as deploying your agent to any other Python host. 5-minute deploy.
+- [IBM watsonx.ai](https://waxell.ai/docs/runtimes/watsonx): Wrap your IBM watsonx.ai Python agent with Waxell — every Granite, Llama, and Mistral call on watsonx Foundation Models shows up in your governance dashboard with token counts and IBM-published cost. 5-minute deploy.
+- [Azure AI Foundry (hosted agents)](https://waxell.ai/docs/runtimes/azure-ai-foundry): Deploy a Waxell-instrumented LangGraph agent to Azure AI Foundry as a hosted agent. The SDK ships inside the container and produces full client-side spans plus in-path policy enforcement — runs stream natively into Waxell with no App Insights pull. 5-minute deploy.
+- [Vertex AI Agent Engine](https://waxell.ai/docs/runtimes/vertex-agent-engine): Deploy a Waxell-instrumented LangGraph agent to Vertex AI Agent Engine. No Dockerfile — you hand Agent Engine a Python object, waxell-observe ships as a requirements entry, and every run's full span trace streams natively into your Waxell dashboard. 5-minute deploy.
+
+## Agent Connections
+
+> Connect third-party and self-hosted agents to Waxell governance
+
+### Developer MCP
+
+- [For Coding Agents](https://waxell.ai/docs/agents/overview)
+- [Setup](https://waxell.ai/docs/agents/setup)
+- [Connect via OAuth](https://waxell.ai/docs/agents/mcp-connection): Connect Claude Desktop or Claude Code to Waxell using OAuth — no API keys in config files.
+- [Capabilities](https://waxell.ai/docs/agents/capabilities)
+- [Self-Hosting](https://waxell.ai/docs/agents/self-hosting)
+- [Managing Connections](https://waxell.ai/docs/agents/managing-connections): View, revoke, and regenerate MCP OAuth connections in the Waxell dashboard.
+- [OAuth Flow](https://waxell.ai/docs/agents/oauth-flow): How the MCP OAuth authorization flow works — discovery, client registration, PKCE authorization, and token exchange.
+
+## Waxell Connect
+
+> Workspaces, governance, and Slack for human-agent collaboration
+
+### Connect
+
+- [Connect — Third-Party Agent Visibility](https://waxell.ai/docs/connect/overview)
+- [Connect Workspaces](https://waxell.ai/docs/connect/workspaces)
+- [Connect Agent Governance](https://waxell.ai/docs/connect/governance): How Waxell governs external AI agents (Claude Code, Claude Cowork, Codex, MCP) connected via the Connect platform — enforcement models, scope dimensions, lifecycle, and policy categories.
+- [Connect Slack Integration](https://waxell.ai/docs/connect/slack-integration)
+
+## Waxell Endpoints
+
+> Endpoint visibility and on-device guard for AI tools your team already uses
+
+### Get Started
+
+- [Waxell Endpoints — Govern the AI on Every Machine](https://waxell.ai/docs/endpoints/overview): Waxell Endpoints brings the AI tools running on your team's laptops — Claude Desktop, Cursor, Claude Code, Copilot, ChatGPT, browsers — under discovery, observability, and governance. Start with shadow-AI visibility, opt into capture per host.
+- [How Waxell Endpoints Works](https://waxell.ai/docs/endpoints/how-it-works): The architecture behind Waxell Endpoints — the desktop agent's components, how it enrolls against a per-tenant CA, what it observes vs. captures, and how on-device DLP keeps raw payloads from ever leaving the machine.
+- [Key Concepts & Glossary](https://waxell.ai/docs/endpoints/concepts): The vocabulary of Waxell Endpoints — device enrollment, tenant CA, AI apps, app types and capture ceiling, metadata flows vs. payload capture, the Guard cascade, and the device→agent map.
+
+### Deploy to a Fleet (MDM)
+
+- [Deploy to a Fleet (MDM) — Overview](https://waxell.ai/docs/endpoints/mdm/overview): How Waxell deploys the desktop endpoint agent to a whole fleet via any MDM — one per-tenant profile plus the signed installer, silent enrollment, capture off by default.
+- [Deploy to a Mac Fleet (MDM)](https://waxell.ai/docs/endpoints/mdm/macos): Step-by-step — push the Waxell tenant profile and signed .pkg from Hexnode, Jamf, Kandji, or Intune so every managed Mac silently enrolls, trusts the tenant CA, and reports its AI apps.
+- [Deploy to a Windows Fleet (Intune)](https://waxell.ai/docs/endpoints/mdm/windows): Step-by-step — push the Waxell trusted cert, managed-config script, and agent MSI from Intune so every managed PC enrolls, trusts the tenant CA, and reports its AI apps. Includes Memory Integrity (HVCI) guidance.
+
+### Single Machine (No MDM)
+
+- [Install on One Machine (No MDM)](https://waxell.ai/docs/endpoints/manual-install): Step-by-step guide to installing the Waxell desktop agent on a single Mac or Windows machine yourself — no MDM, no IT. Download, sign in, approve the network monitor, and start seeing your AI apps.
+
+### Guard — Capture & Control
+
+- [The Guard Cascade](https://waxell.ai/docs/endpoints/guard/overview): Guard is the layered policy that controls what the Waxell agent observes, blocks, or captures on each device. Understand the Global → App type → User group → Device → Agent cascade, how layers override field by field, and the resolve simulator.
+- [Enabling Capture (Creating a Guard)](https://waxell.ai/docs/endpoints/guard/enable-capture): Step-by-step — how to turn payload capture on for a specific AI host using the Waxell Guard cascade, scope it to an app type, group, or device, and verify it with the resolve simulator. Capture stays off until you do this.
+- [Privacy & On-Device DLP](https://waxell.ai/docs/endpoints/guard/privacy-and-dlp): What payload capture does and doesn't expose — capture is off by default, limited to catalog AI hosts, never banking/health/mail, and DLP-redacted on the device so raw payloads never leave the machine.
+
+### Reference
+
+- [What Gets Installed](https://waxell.ai/docs/endpoints/reference/what-gets-installed): Reference — every component the Waxell desktop endpoint agent installs on macOS and Windows, what each one does, and where its files and logs live.
+- [Troubleshooting & Diagnostics](https://waxell.ai/docs/endpoints/reference/troubleshooting): Fixes for common Waxell desktop endpoint agent issues on macOS and Windows — system-extension approval, SmartScreen, Defender, browser sign-in, Memory Integrity (HVCI), and where to find logs.
+
+## Platform
+
+> Billing, insights, and reseller administration
+
+### Platform
+
+- [Insights — Executive Intelligence](https://waxell.ai/docs/platform/insights)
+- [Billing & Subscription Management](https://waxell.ai/docs/platform/billing)
+- [Partner & Reseller Program](https://waxell.ai/docs/platform/reseller)
+
+## CLI
+
+> The wax command-line interface
+
+### CLI
+
+- [CLI Reference](https://waxell.ai/docs/reference/cli): The complete guide to the wax CLI — authenticate, push agents, explore runs and traces, govern, and configure Waxell from your terminal.
+
+## Guides
+
+> Task-oriented walkthroughs
+
+### Guides
+
+- [Architecture](https://waxell.ai/docs/guides/architecture): Deep dive into Waxell's data flow and security architecture.
+- [Enterprise Guide](https://waxell.ai/docs/guides/enterprise): Configure enterprise security features including data residency, sub-tenants, and compliance.
+- [Best Practices](https://waxell.ai/docs/guides/best-practices): Patterns for production-ready Waxell agents — scoping, checkpointing, prompting, governance, testing, and what to monitor.
+
+### Reference
+
+- [CLI Reference](https://waxell.ai/docs/reference/cli): The complete guide to the wax CLI — authenticate, push agents, explore runs and traces, govern, and configure Waxell from your terminal.
+- [Enterprise API](https://waxell.ai/docs/reference/enterprise-api): API reference for enterprise features including data residency, sub-tenants, and compliance.
+
+## Migrating to Waxell
+
+> Move from other observability and agent platforms
+
+### Framework Comparison
+
+- [LangChain vs Waxell](https://waxell.ai/docs/migrate/langchain-vs-waxell): Side-by-side comparison of LangChain alone, LangChain with Waxell Observe, and native Waxell for building AI agents.
+- [CrewAI vs Waxell](https://waxell.ai/docs/migrate/crewai-vs-waxell): Side-by-side comparison of CrewAI alone, CrewAI with Waxell Observe, and native Waxell for building AI agents.
+- [Feature Comparison Matrix](https://waxell.ai/docs/migrate/feature-matrix): Comprehensive feature comparison across LangChain, CrewAI, custom Python agents, Waxell Observe, and Waxell Native.
+
+### Migration Path
+
+- [Progressive Migration](https://waxell.ai/docs/migrate/overview): A phased approach to adopting Waxell. Each phase delivers standalone value -- you can stop at any phase.
+- [Phase 1: Add Observability](https://waxell.ai/docs/migrate/phase-1-observe): Add observability, cost tracking, and policy enforcement to your existing AI agents with waxell-observe.
+- [Phase 2: Add Signals](https://waxell.ai/docs/migrate/phase-2-signals): Move from ad-hoc agent triggering to webhook-driven execution with Waxell signals.
+- [Phase 3: Agent Builder](https://waxell.ai/docs/migrate/phase-3-agent-builder): AI-assisted migration tool that converts existing agents to native Waxell SDK definitions.
+- [Phase 4: Go Fully Native](https://waxell.ai/docs/migrate/phase-4-native): Manual migration guide for converting existing agents to native Waxell SDK definitions with full governance and durable workflows.

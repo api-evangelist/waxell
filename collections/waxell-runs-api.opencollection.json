@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Waxell Observe Cost Management Runs API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Wax-Key",
+      "value": "{{X-Wax-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/start/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Begin a new agent execution run and obtain a `run_id` used for subsequent telemetry calls."
+        },
+        {
+          "info": {
+            "name": "Complete Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.waxell.dev/api/v1/observe/runs/:run_id/complete/",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the run returned by `POST /runs/start/`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark an in-flight run as completed (or failed) and finalize aggregate metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
