@@ -23,7 +23,7 @@ description: >-
   more).
 created: '2026-05-06'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - AI Agent Governance
   - Observability
