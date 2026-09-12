@@ -233,6 +233,8 @@ apis:
   - type: JSONStructure
     url: json-structure/waxell-policy-decision-structure.json
 common:
+  - type: Website
+    url: https://www.waxell.ai/
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/waxell/overview
   - type: AgenticAccess
