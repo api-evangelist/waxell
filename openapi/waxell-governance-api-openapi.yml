@@ -1,28 +1,9 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Waxell Observe Cost Management Governance API
+  title: Waxell Observe Governance API
   description: 'The Waxell Observe REST API exposes the AI agent governance and
 
-    observability control plane. It is used by the `waxell-observe` Python
-
-    SDK and Developer MCP server to record agent runs, log LLM calls and
-
-    spans, evaluate runtime governance policies, manage prompts, and
-
-    administer model cost tables.
-
-
-    Endpoints are served from a tenant-specific control plane host
-
-    (e.g. `https://acme.waxell.dev`) at the path prefix
-
-    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
-
-    issued in the dashboard, presented either as `X-Wax-Key` or as a
-
-    `Bearer` token.
-
-    '
+    observability control plane.'
   version: '1.0'
   contact:
     name: Waxell
@@ -52,9 +33,7 @@ paths:
 
         action. The response indicates whether to allow, warn, redact,
 
-        throttle, block, skip, or retry the action.
-
-        '
+        throttle, block, skip, or retry the action.'
       operationId: checkPolicy
       requestBody:
         required: true
@@ -100,30 +79,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Event:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-        agent_name:
-          type: string
-        run_id:
-          type: string
-        severity:
-          type: string
-          enum:
-          - info
-          - warning
-          - error
-          - critical
-        attributes:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
     PolicyCheckRequest:
       type: object
       required:
@@ -140,6 +95,18 @@ components:
         context:
           type: object
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+      required:
+      - error
+      - message
     PolicyDecision:
       type: object
       properties:
@@ -164,18 +131,30 @@ components:
           type: integer
         redacted_content:
           type: string
-    Error:
+    Event:
       type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        request_id:
-          type: string
       required:
-      - error
-      - message
+      - type
+      properties:
+        type:
+          type: string
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        severity:
+          type: string
+          enum:
+          - info
+          - warning
+          - error
+          - critical
+        attributes:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
   securitySchemes:
     WaxKey:
       type: apiKey

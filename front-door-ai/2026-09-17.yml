@@ -1,0 +1,36 @@
+# Front Door AI Index — waxell — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: waxell
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.waxell.ai
+  final_host: www.waxell.ai
+  ownership: own
+  owner: waxell
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 198
+  host_score: 198
+  density: 62.24
+  words: 3181
+  tiers:
+    agentic: 92
+    core: 73
+    model: 33
+  ambiguous: 107
+  top_terms:
+    agent: 105
+    AI: 67
+    AI agent: 35
+    MCP: 34
+    Claude: 18
+    ChatGPT: 9
+    agentic: 9
+    LLMs: 6
+    copilot: 5
+    GPT: 4
+    prompts: 3
+    Gemini: 2

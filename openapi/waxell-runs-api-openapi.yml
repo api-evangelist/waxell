@@ -1,28 +1,9 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Waxell Observe Cost Management Runs API
+  title: Waxell Observe Runs API
   description: 'The Waxell Observe REST API exposes the AI agent governance and
 
-    observability control plane. It is used by the `waxell-observe` Python
-
-    SDK and Developer MCP server to record agent runs, log LLM calls and
-
-    spans, evaluate runtime governance policies, manage prompts, and
-
-    administer model cost tables.
-
-
-    Endpoints are served from a tenant-specific control plane host
-
-    (e.g. `https://acme.waxell.dev`) at the path prefix
-
-    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
-
-    issued in the dashboard, presented either as `X-Wax-Key` or as a
-
-    `Bearer` token.
-
-    '
+    observability control plane.'
   version: '1.0'
   contact:
     name: Waxell
@@ -94,32 +75,21 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    RateLimited:
-      description: Rate limit or governance throttle triggered.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Request payload was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    RunStartRequest:
+      type: object
+      required:
+      - agent_name
+      properties:
+        agent_name:
+          type: string
+        session_id:
+          type: string
+        user_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
     Run:
       type: object
       properties:
@@ -163,20 +133,6 @@ components:
           type: string
         error:
           type: string
-    RunStartRequest:
-      type: object
-      required:
-      - agent_name
-      properties:
-        agent_name:
-          type: string
-        session_id:
-          type: string
-        user_id:
-          type: string
-        metadata:
-          type: object
-          additionalProperties: true
     Error:
       type: object
       properties:
@@ -198,6 +154,31 @@ components:
         type: string
         format: uuid
       description: Identifier of the run returned by `POST /runs/start/`.
+  responses:
+    NotFound:
+      description: Resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit or governance throttle triggered.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Request payload was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     WaxKey:
       type: apiKey

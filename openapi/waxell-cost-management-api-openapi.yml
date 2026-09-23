@@ -1,28 +1,9 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Waxell Observe Cost Management API
   description: 'The Waxell Observe REST API exposes the AI agent governance and
 
-    observability control plane. It is used by the `waxell-observe` Python
-
-    SDK and Developer MCP server to record agent runs, log LLM calls and
-
-    spans, evaluate runtime governance policies, manage prompts, and
-
-    administer model cost tables.
-
-
-    Endpoints are served from a tenant-specific control plane host
-
-    (e.g. `https://acme.waxell.dev`) at the path prefix
-
-    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
-
-    issued in the dashboard, presented either as `X-Wax-Key` or as a
-
-    `Bearer` token.
-
-    '
+    observability control plane.'
   version: '1.0'
   contact:
     name: Waxell

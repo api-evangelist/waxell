@@ -1,28 +1,9 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Waxell Observe Cost Management Telemetry API
+  title: Waxell Observe Telemetry API
   description: 'The Waxell Observe REST API exposes the AI agent governance and
 
-    observability control plane. It is used by the `waxell-observe` Python
-
-    SDK and Developer MCP server to record agent runs, log LLM calls and
-
-    spans, evaluate runtime governance policies, manage prompts, and
-
-    administer model cost tables.
-
-
-    Endpoints are served from a tenant-specific control plane host
-
-    (e.g. `https://acme.waxell.dev`) at the path prefix
-
-    `/api/v1/observe/`. Authentication uses the same `wax_sk_` keys
-
-    issued in the dashboard, presented either as `X-Wax-Key` or as a
-
-    `Bearer` token.
-
-    '
+    observability control plane.'
   version: '1.0'
   contact:
     name: Waxell
@@ -133,6 +114,23 @@ paths:
                 $ref: '#/components/schemas/Score'
 components:
   schemas:
+    Score:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+        value:
+          oneOf:
+          - type: number
+          - type: string
+          - type: boolean
+        comment:
+          type: string
+        evaluator:
+          type: string
     Step:
       type: object
       properties:
@@ -152,6 +150,32 @@ components:
           type: string
           format: date-time
         ended_at:
+          type: string
+          format: date-time
+    LlmCall:
+      type: object
+      required:
+      - model
+      properties:
+        id:
+          type: string
+        model:
+          type: string
+        provider:
+          type: string
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+        latency_ms:
+          type: integer
+        cost_usd:
+          type: number
+        prompt:
+          type: string
+        completion:
+          type: string
+        created_at:
           type: string
           format: date-time
     Span:
@@ -178,49 +202,6 @@ components:
           type: string
           format: date-time
         end_time:
-          type: string
-          format: date-time
-    Score:
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          type: string
-        value:
-          oneOf:
-          - type: number
-          - type: string
-          - type: boolean
-        comment:
-          type: string
-        evaluator:
-          type: string
-    LlmCall:
-      type: object
-      required:
-      - model
-      properties:
-        id:
-          type: string
-        model:
-          type: string
-        provider:
-          type: string
-        input_tokens:
-          type: integer
-        output_tokens:
-          type: integer
-        latency_ms:
-          type: integer
-        cost_usd:
-          type: number
-        prompt:
-          type: string
-        completion:
-          type: string
-        created_at:
           type: string
           format: date-time
   parameters:
