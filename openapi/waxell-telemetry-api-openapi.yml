@@ -113,71 +113,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Score'
 components:
+  parameters:
+    RunId:
+      in: path
+      name: run_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the run returned by `POST /runs/start/`.
   schemas:
-    Score:
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          type: string
-        value:
-          oneOf:
-          - type: number
-          - type: string
-          - type: boolean
-        comment:
-          type: string
-        evaluator:
-          type: string
-    Step:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        input:
-          type: object
-          additionalProperties: true
-        output:
-          type: object
-          additionalProperties: true
-        started_at:
-          type: string
-          format: date-time
-        ended_at:
-          type: string
-          format: date-time
-    LlmCall:
-      type: object
-      required:
-      - model
-      properties:
-        id:
-          type: string
-        model:
-          type: string
-        provider:
-          type: string
-        input_tokens:
-          type: integer
-        output_tokens:
-          type: integer
-        latency_ms:
-          type: integer
-        cost_usd:
-          type: number
-        prompt:
-          type: string
-        completion:
-          type: string
-        created_at:
-          type: string
-          format: date-time
     Span:
       type: object
       properties:
@@ -204,15 +149,70 @@ components:
         end_time:
           type: string
           format: date-time
-  parameters:
-    RunId:
-      in: path
-      name: run_id
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: Identifier of the run returned by `POST /runs/start/`.
+    Score:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+        value:
+          oneOf:
+          - type: number
+          - type: string
+          - type: boolean
+        comment:
+          type: string
+        evaluator:
+          type: string
+    LlmCall:
+      type: object
+      required:
+      - model
+      properties:
+        id:
+          type: string
+        model:
+          type: string
+        provider:
+          type: string
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+        latency_ms:
+          type: integer
+        cost_usd:
+          type: number
+        prompt:
+          type: string
+        completion:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Step:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        input:
+          type: object
+          additionalProperties: true
+        output:
+          type: object
+          additionalProperties: true
+        started_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
   securitySchemes:
     WaxKey:
       type: apiKey

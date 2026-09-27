@@ -79,58 +79,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    PolicyCheckRequest:
-      type: object
-      required:
-      - agent_name
-      - action
-      properties:
-        agent_name:
-          type: string
-        run_id:
-          type: string
-        action:
-          type: string
-          description: Proposed action (e.g. tool name, LLM model, network destination).
-        context:
-          type: object
-          additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        request_id:
-          type: string
-      required:
-      - error
-      - message
-    PolicyDecision:
-      type: object
-      properties:
-        decision:
-          type: string
-          enum:
-          - allow
-          - warn
-          - redact
-          - throttle
-          - block
-          - skip
-          - retry
-        policy_id:
-          type: string
-        category:
-          type: string
-          description: One of the 26 policy categories (e.g. `cost_management`, `data_access`).
-        reason:
-          type: string
-        retry_after_seconds:
-          type: integer
-        redacted_content:
-          type: string
     Event:
       type: object
       required:
@@ -155,6 +103,58 @@ components:
         created_at:
           type: string
           format: date-time
+    PolicyDecision:
+      type: object
+      properties:
+        decision:
+          type: string
+          enum:
+          - allow
+          - warn
+          - redact
+          - throttle
+          - block
+          - skip
+          - retry
+        policy_id:
+          type: string
+        category:
+          type: string
+          description: One of the 26 policy categories (e.g. `cost_management`, `data_access`).
+        reason:
+          type: string
+        retry_after_seconds:
+          type: integer
+        redacted_content:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+      required:
+      - error
+      - message
+    PolicyCheckRequest:
+      type: object
+      required:
+      - agent_name
+      - action
+      properties:
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        action:
+          type: string
+          description: Proposed action (e.g. tool name, LLM model, network destination).
+        context:
+          type: object
+          additionalProperties: true
   securitySchemes:
     WaxKey:
       type: apiKey

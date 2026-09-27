@@ -61,18 +61,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        request_id:
-          type: string
-      required:
-      - error
-      - message
     Prompt:
       type: object
       properties:
@@ -91,6 +79,18 @@ components:
         metadata:
           type: object
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+      required:
+      - error
+      - message
   responses:
     NotFound:
       description: Resource does not exist.
