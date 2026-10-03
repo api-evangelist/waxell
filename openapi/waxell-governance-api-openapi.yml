@@ -71,38 +71,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Event'
 components:
-  responses:
-    RateLimited:
-      description: Rate limit or governance throttle triggered.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Event:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-        agent_name:
-          type: string
-        run_id:
-          type: string
-        severity:
-          type: string
-          enum:
-          - info
-          - warning
-          - error
-          - critical
-        attributes:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
     PolicyDecision:
       type: object
       properties:
@@ -139,6 +108,30 @@ components:
       required:
       - error
       - message
+    Event:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        severity:
+          type: string
+          enum:
+          - info
+          - warning
+          - error
+          - critical
+        attributes:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
     PolicyCheckRequest:
       type: object
       required:
@@ -155,6 +148,13 @@ components:
         context:
           type: object
           additionalProperties: true
+  responses:
+    RateLimited:
+      description: Rate limit or governance throttle triggered.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     WaxKey:
       type: apiKey

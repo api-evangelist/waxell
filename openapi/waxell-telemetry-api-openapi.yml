@@ -113,16 +113,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/Score'
 components:
-  parameters:
-    RunId:
-      in: path
-      name: run_id
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: Identifier of the run returned by `POST /runs/start/`.
   schemas:
+    Step:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        input:
+          type: object
+          additionalProperties: true
+        output:
+          type: object
+          additionalProperties: true
+        started_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
     Span:
       type: object
       properties:
@@ -192,27 +204,15 @@ components:
         created_at:
           type: string
           format: date-time
-    Step:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        input:
-          type: object
-          additionalProperties: true
-        output:
-          type: object
-          additionalProperties: true
-        started_at:
-          type: string
-          format: date-time
-        ended_at:
-          type: string
-          format: date-time
+  parameters:
+    RunId:
+      in: path
+      name: run_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the run returned by `POST /runs/start/`.
   securitySchemes:
     WaxKey:
       type: apiKey

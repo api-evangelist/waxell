@@ -75,45 +75,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    RateLimited:
-      description: Rate limit or governance throttle triggered.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Request payload was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    RunCompleteRequest:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - completed
-          - failed
-          - cancelled
-        output:
-          type: string
-        error:
-          type: string
     Error:
       type: object
       properties:
@@ -156,6 +118,19 @@ components:
           type: string
         user_id:
           type: string
+    RunCompleteRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - completed
+          - failed
+          - cancelled
+        output:
+          type: string
+        error:
+          type: string
     RunStartRequest:
       type: object
       required:
@@ -170,6 +145,31 @@ components:
         metadata:
           type: object
           additionalProperties: true
+  responses:
+    RateLimited:
+      description: Rate limit or governance throttle triggered.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Request payload was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     RunId:
       in: path
