@@ -1,0 +1,26 @@
+slug: waxell
+provider: Waxell
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Governance
+  spec_file: waxell-governance-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: 'POST /api/v1/observe/policy-check/ checkPolicy; schema PolicyDecision; vendor: "runtime policy
+    enforcement" for AI agents'
+  reason: Runtime policy evaluation and event recording for AI agents is responsible-AI / AI model operations
+    governance, which BC-610.60 covers. Not corporate Policy Management (BC-130.20), which concerns human
+    policy lifecycle and attestation.

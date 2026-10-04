@@ -233,6 +233,9 @@ apis:
   - type: JSONStructure
     url: json-structure/waxell-policy-decision-structure.json
 common:
+  - type: CapabilityMap
+    url: capabilities/waxell-capability-edges.yml
+    name: Waxell Business Capability Map
   - type: Website
     url: https://www.waxell.ai/
   - type: PostmanWorkspace
