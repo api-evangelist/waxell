@@ -1,22 +1,20 @@
-# Kin Score artifact — waxell — 2026-08-24T171257
+# Kin Score artifact — waxell — 2026-09-25T210408
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: waxell
-  schema_version: 0.13.0
-  scored_at: '2026-08-24'
-  run_ts: 2026-08-24T171257
-  composite: 61.4
+  schema_version: 0.23.0
+  scored_at: '2026-09-25'
+  run_ts: 2026-09-25T210408
+  composite: 58.0
   band: strong
   facets:
-    discoverability: 81.5
-    contract_quality: 70.3
-    governance: 28.8
-    operational_transparency: 63.2
-    developer_ergonomics: 54.8
-    commercial_clarity: 60.5
-    contract_governance: 28.8
-    access_clarity: 60.5
+    discoverability: 73.2
+    contract_quality: 64.1
+    contract_governance: 27.3
+    operational_transparency: 60.0
+    developer_ergonomics: 58.3
+    access_clarity: 58.4
   agent_readiness:
     score: 21.0
     band: agent-aware
@@ -42,10 +40,10 @@ kin_score:
       agentic_commerce: false
   regulatory:
     applies: true
-    regime: Insurance
-    regime_id: insurance
-    score: 33.3
-    matched_via: tags
+    regime: Horizontal (data, software, accessibility, platform)
+    regime_id: horizontal
+    score: 21.6
+    matched_via: fallback
   provenance:
     agentic_access: derived
     contracts:
