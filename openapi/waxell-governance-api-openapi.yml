@@ -71,7 +71,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Event'
 components:
+  responses:
+    RateLimited:
+      description: Rate limit or governance throttle triggered.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    PolicyCheckRequest:
+      type: object
+      required:
+      - agent_name
+      - action
+      properties:
+        agent_name:
+          type: string
+        run_id:
+          type: string
+        action:
+          type: string
+          description: Proposed action (e.g. tool name, LLM model, network destination).
+        context:
+          type: object
+          additionalProperties: true
     PolicyDecision:
       type: object
       properties:
@@ -96,18 +119,6 @@ components:
           type: integer
         redacted_content:
           type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        request_id:
-          type: string
-      required:
-      - error
-      - message
     Event:
       type: object
       required:
@@ -132,29 +143,18 @@ components:
         created_at:
           type: string
           format: date-time
-    PolicyCheckRequest:
+    Error:
       type: object
-      required:
-      - agent_name
-      - action
       properties:
-        agent_name:
+        error:
           type: string
-        run_id:
+        message:
           type: string
-        action:
+        request_id:
           type: string
-          description: Proposed action (e.g. tool name, LLM model, network destination).
-        context:
-          type: object
-          additionalProperties: true
-  responses:
-    RateLimited:
-      description: Rate limit or governance throttle triggered.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+      required:
+      - error
+      - message
   securitySchemes:
     WaxKey:
       type: apiKey

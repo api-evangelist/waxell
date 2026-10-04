@@ -114,27 +114,6 @@ paths:
                 $ref: '#/components/schemas/Score'
 components:
   schemas:
-    Step:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        input:
-          type: object
-          additionalProperties: true
-        output:
-          type: object
-          additionalProperties: true
-        started_at:
-          type: string
-          format: date-time
-        ended_at:
-          type: string
-          format: date-time
     Span:
       type: object
       properties:
@@ -161,23 +140,27 @@ components:
         end_time:
           type: string
           format: date-time
-    Score:
+    Step:
       type: object
-      required:
-      - name
-      - value
       properties:
+        id:
+          type: string
         name:
           type: string
-        value:
-          oneOf:
-          - type: number
-          - type: string
-          - type: boolean
-        comment:
+        type:
           type: string
-        evaluator:
+        input:
+          type: object
+          additionalProperties: true
+        output:
+          type: object
+          additionalProperties: true
+        started_at:
           type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
     LlmCall:
       type: object
       required:
@@ -204,6 +187,23 @@ components:
         created_at:
           type: string
           format: date-time
+    Score:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+        value:
+          oneOf:
+          - type: number
+          - type: string
+          - type: boolean
+        comment:
+          type: string
+        evaluator:
+          type: string
   parameters:
     RunId:
       in: path
