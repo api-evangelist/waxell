@@ -1,4 +1,4 @@
-# Waxell (waxell)
+# Waxell
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,119 +66,181 @@
 
 Waxell is an AI agent governance and observability platform that provides runtime policy enforcement, auto-instrumented LLM telemetry, MCP governance, cost management, and durable workflow execution for agents built in any Python framework or third-party agentic tool (Claude Code, Cursor, LangChain, CrewAI, OpenAI Agents SDK, and 200+ more).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/waxell/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/waxell/refs/heads/main/apis.yml)
+**Areas:** AI Agent Governance · Observability · Policy Enforcement · LLM Telemetry · Cost Management · MCP · Agent Runtime
 
-## Scope
+## Waxell on APIs.io
 
-- **Type:** Index
+Everything profiled for Waxell is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/waxell/](https://apis.io/providers/waxell/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- AI Agent Governance
-- Observability
-- Policy Enforcement
-- LLM Telemetry
-- Cost Management
-- MCP
-- Agent Runtime
+- [Waxell Developer MCP Server](https://apis.io/apis/waxell/developer-mcp/) — Waxell Developer MCP is a hosted Model Context Protocol server that lets coding agents (Claude Code, Cursor, Windsurf, VS Code, Claude Desktop) query a…
+- [Waxell Cost Management API](https://apis.io/apis/waxell/waxell-cost-management-api/) — Model cost catalog and tenant-level overrides
+- [Waxell Governance API](https://apis.io/apis/waxell/waxell-governance-api/) — Pre-execution policy checks and audit events
+- [Waxell Prompts API](https://apis.io/apis/waxell/waxell-prompts-api/) — Managed prompts retrievable by name and version
+- [Waxell Runs API](https://apis.io/apis/waxell/waxell-runs-api/) — Lifecycle endpoints for agent execution runs
+- [Waxell Telemetry API](https://apis.io/apis/waxell/waxell-telemetry-api/) — LLM calls, spans, steps, and quality scores recorded against a run
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-06
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Waxell Observe API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Waxell Observe REST API exposes the AI agent governance and observability control plane. It is used by the waxell-observe Python SDK and the Developer MCP server to record runs, log LLM calls, spans, steps and scores, evaluate runtime governance policies, manage prompts, and administer the model cost catalog. Endpoints live under /api/v1/observe/ on a tenant-specific *.waxell.dev host and accept the same wax_sk_ keys via X-Wax-Key or Authorization: Bearer.
+- [Waxell Agentic Access](https://apis.io/agentic-access/waxell/waxell-agentic-access/)
 
-- **Human URL:** [https://waxell.ai/docs/observe/api/endpoints](https://waxell.ai/docs/observe/api/endpoints)
-- **Base URL:** `https://{tenant}.waxell.dev/api/v1/observe`
+#### JSON Schema (4)
 
-#### Tags
+The data models the API reads and writes.
 
-- AI Agent Governance
-- Observability
-- LLM Telemetry
-- Policy Enforcement
-- Cost Management
+- [Waxell LLM Call](https://apis.io/schemas/waxell/waxell-llm-call/)
+- [Waxell Policy Decision](https://apis.io/schemas/waxell/waxell-policy-decision/)
+- [Waxell Run](https://apis.io/schemas/waxell/waxell-run/)
+- [Waxell Span](https://apis.io/schemas/waxell/waxell-span/)
 
-#### Properties
+#### JSON Structure (2)
 
+Data models expressed in JSON Structure.
+
+- [Waxell Policy Decision Structure](https://apis.io/json-structure/waxell/waxell-policy-decision-structure/)
+- [Waxell Run Structure](https://apis.io/json-structure/waxell/waxell-run-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Waxell Context](https://apis.io/jsonld/waxell/waxell-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Waxell Vocabulary](https://apis.io/vocabularies/waxell/waxell-vocabulary/)
+
+#### Examples (4)
+
+Example requests and responses.
+
+- [Waxell Get Prompt Example](https://apis.io/examples/waxell/waxell-get-prompt-example/)
+- [Waxell Policy Check Example](https://apis.io/examples/waxell/waxell-policy-check-example/)
+- [Waxell Record Llm Call Example](https://apis.io/examples/waxell/waxell-record-llm-call-example/)
+- [Waxell Start Run Example](https://apis.io/examples/waxell/waxell-start-run-example/)
+
+#### Collections (11)
+
+Postman and Open Collection request collections.
+
+- [Waxell Observe Cost Management API](https://apis.io/collections/waxell/open-waxell-cost-management-api/)
+- [Waxell Observe Cost Management Governance API](https://apis.io/collections/waxell/open-waxell-governance-api/)
+- [Waxell Observe API](https://apis.io/collections/waxell/open-waxell-observe/)
+- [Waxell Observe Cost Management Prompts API](https://apis.io/collections/waxell/open-waxell-prompts-api/)
+- [Waxell Observe Cost Management Runs API](https://apis.io/collections/waxell/open-waxell-runs-api/)
+- [Waxell Observe Cost Management Telemetry API](https://apis.io/collections/waxell/open-waxell-telemetry-api/)
+- [Waxell Observe Cost Management API](https://apis.io/collections/waxell/postman-waxell-cost-management-api/)
+- [Waxell Observe Cost Management Governance API](https://apis.io/collections/waxell/postman-waxell-governance-api/)
+- [Waxell Observe Cost Management Prompts API](https://apis.io/collections/waxell/postman-waxell-prompts-api/)
+- [Waxell Observe Cost Management Runs API](https://apis.io/collections/waxell/postman-waxell-runs-api/)
+- [Waxell Observe Cost Management Telemetry API](https://apis.io/collections/waxell/postman-waxell-telemetry-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Waxell — jsonschema rules](https://apis.io/rules/waxell/waxell-jsonschema-spectral-rules/)
+- [Waxell API Rules](https://apis.io/rules/waxell/waxell-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Waxell Authentication](https://apis.io/security/waxell/waxell-authentication/)
+- [Waxell Domain Security](https://apis.io/security/waxell/waxell-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Waxell Plans Pricing](https://apis.io/plans/waxell/waxell-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Waxell Rate Limits](https://apis.io/rate-limits/waxell/waxell-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Waxell Finops](https://apis.io/finops/waxell/waxell-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.waxell.ai/)
 - [Documentation](https://waxell.ai/docs)
-- [API Reference](https://waxell.ai/docs/observe/api/endpoints)
-- [Quickstart](https://waxell.ai/docs/observe/quickstart)
-- [Authentication](https://waxell.ai/docs/observe/api/authentication)
-- [SDK](https://pypi.org/project/waxell-observe/)
-- [OpenAPI](openapi/waxell-observe-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/waxell-observe.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/waxell-observe.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/waxell-run-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/waxell-llm-call-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/waxell-policy-decision-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/waxell-span-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/waxell-run-structure.json)
-- [JSON Structure](json-structure/waxell-policy-decision-structure.json)
-
-### Waxell Developer MCP Server
-
-Waxell Developer MCP is a hosted Model Context Protocol server that lets coding agents (Claude Code, Cursor, Windsurf, VS Code, Claude Desktop) query a Waxell instance in real time. It exposes 15 live tools (agent health, error investigation, LLM cost tracking, governance policy review, account signup) plus 8 documentation resources at waxell://docs/*. Connection is SSE; per-client authentication uses Bearer tokens in the Authorization header.
-
-- **Human URL:** [https://waxell.ai/docs/agents/overview](https://waxell.ai/docs/agents/overview)
-- **Base URL:** `https://dev-mcp.waxell.dev`
-
-#### Tags
-
-- MCP
-- AI Agent Governance
-- Developer Tools
-- Coding Agents
-
-#### Properties
-
-- [Documentation](https://waxell.ai/docs/agents/overview)
-- [API Reference](https://dev-mcp.waxell.dev/sse)
-- [Authentication](https://waxell.ai/docs/agents/overview)
-- [GitHub Repository](https://gitlab.com/waxell/agentforge)
-- [Postman Collection](collections/waxell-observe.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/waxell-observe.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Documentation](https://waxell.ai/docs)
-- [Getting Started](https://waxell.ai/docs/observe/quickstart)
-- [Quickstart](https://waxell.ai/docs/observe/quickstart)
-- [SDK](https://waxell.ai/docs/observe/quickstart)
-- [Console](https://waxell.dev)
-- [Sign Up](https://waxell.ai/get-access)
+- [Getting started](https://waxell.ai/docs/observe/quickstart)
 - [Pricing](https://waxell.ai/get-access)
-- [Plans](plans/waxell-plans-pricing.yml)
-- [Rate Limits](rate-limits/waxell-rate-limits.yml)
-- [Fin Ops](finops/waxell-finops.yml)
-- [Status Page](https://status.waxell.dev)
 - [Blog](https://waxell.ai/blog)
-- [Glossary](https://waxell.ai/glossary)
 - [Security](https://waxell.ai/docs/security)
-- [Trust Center](https://app.vanta.com/callsine.com/trust/pg7qc55eh5ge6ejjv7zxksy)
 - [Compliance](https://waxell.ai/docs/security)
-- [LinkedIn](https://www.linkedin.com/company/waxell-ai)
-- [GitHub Repository](https://gitlab.com/waxell/agentforge)
-- [Spectral Rules](rules/waxell-rules.yml)
-- [Vocabulary](vocabulary/waxell-vocabulary.yml)
-- [JSON-LD](json-ld/waxell-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Example](examples/waxell-start-run-example.json)
-- [Example](examples/waxell-record-llm-call-example.json)
-- [Example](examples/waxell-policy-check-example.json)
-- [Example](examples/waxell-get-prompt-example.json)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
-- [L L Ms Txt](https://waxell.ai/llms.txt)
+- [Trust centre](https://app.vanta.com/callsine.com/trust/pg7qc55eh5ge6ejjv7zxksy)
+- [Status](https://status.waxell.dev)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 51.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 64.1 |
+| Contract governance | 27.3 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 58.3 |
+| Access clarity | 36.8 |
+
+**Agent readiness 20.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/waxell/](https://apis.io/providers/waxell/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Waxell: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/waxell/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
